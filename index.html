@@ -1,120 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Georgia CAD Pro</title>
-
-<style>
-body {
-    margin: 0;
-    background: black;
-    color: white;
-    font-family: Arial, sans-serif;
-    overflow-x: hidden;
-}
-body::before {
-    content: "";
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at left, rgba(255,0,0,0.15), transparent 50%),
-                radial-gradient(circle at right, rgba(0,100,255,0.15), transparent 50%);
-    z-index: -1;
-}
-.section {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 0 10%;
-}
-.gradient-text {
-    font-size: 3.5em;
-    background: linear-gradient(90deg, #00c6ff, #0072ff, #ff004c);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-.word span {
-    opacity: 0;
-    display: inline-block;
-    transform: translateY(20px);
-    transition: all 0.5s ease;
-}
-.word.active span {
-    opacity: 1;
-    transform: translateY(0);
-}
-.tablet-section {
-    height: 200vh;
-}
-.tablet-wrapper {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.tablet {
-    width: 700px;
-    height: 500px;
-    background: #111;
-    border-radius: 40px;
-    padding: 20px;
-    box-shadow:
-        0 0 40px rgba(255,0,0,0.3),
-        0 0 80px rgba(0,100,255,0.3),
-        0 20px 80px rgba(0,0,0,0.9);
-    transform: scale(0.7);
-    position: relative;
-    overflow: hidden;
-}
-.glass {
-    position: absolute;
-    width: 200%;
-    height: 100%;
-    top: 0;
-    left: -100%;
-    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.15), transparent);
-    transform: skewX(-20deg);
-}
-.screen {
-    width: 100%;
-    height: 100%;
-    border-radius: 25px;
-    overflow: hidden;
-}
-.screen img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.fade {
-    opacity: 0;
-    transform: translateY(60px);
-    transition: all 1s ease;
-}
-.fade.active {
-    opacity: 1;
-    transform: translateY(0);
-}
-.stat {
-    font-size: 2.5em;
-    margin: 20px 0;
-}
-</style>
-</head>
-
 <body>
 
+<!-- HERO -->
 <div class="section fade">
     <div>
-        <h1 class="gradient-text word">Georgia CAD Pro</h1>
-        <h2>Power. Performance. Control.</h2>
+        <h1 class="gradient-text word">Georgia CAD</h1>
+        <h2>Next-Generation Dispatch System for Roleplay Servers</h2>
+        <p>Built for performance. Designed for realism. Powered for you.</p>
     </div>
 </div>
 
+<!-- TABLET SHOWCASE -->
 <div class="tablet-section">
     <div class="tablet-wrapper">
         <div class="tablet" id="tablet">
@@ -126,86 +21,64 @@ body::before {
     </div>
 </div>
 
+<!-- ABOUT -->
 <div class="section fade">
     <div>
-        <h1 class="gradient-text">M5.</h1>
-        <h2>Creator. Accelerator.</h2>
+        <h1 class="gradient-text">What is Georgia CAD?</h1>
+        <p>
+            Georgia CAD is a powerful Computer-Aided Dispatch system designed for FiveM roleplay servers.
+            It provides law enforcement, fire, EMS, and civilians with a seamless and immersive experience.
+        </p>
+    </div>
+</div>
+
+<!-- FEATURES -->
+<div class="section fade">
+    <div>
+        <h1 class="gradient-text">Features</h1>
+        <p>• Real-time dispatch system</p>
+        <p>• Unit status tracking</p>
+        <p>• Call management & logs</p>
+        <p>• Civilian profiles & records</p>
+        <p>• BOLO & warrant system</p>
+        <p>• Clean, modern UI</p>
+    </div>
+</div>
+
+<!-- FRAMEWORK SUPPORT -->
+<div class="section fade">
+    <div>
+        <h1 class="gradient-text">Framework Support</h1>
+        <p>Works seamlessly with:</p>
+
+        <h2>✔ Standalone</h2>
+        <h2>✔ QBcore</h2>
+        <h2>✔ ESX</h2>
+
+        <p>No matter your server setup, Georgia CAD is ready.</p>
+    </div>
+</div>
+
+<!-- PERFORMANCE -->
+<div class="section fade">
+    <div>
+        <h1 class="gradient-text">Performance</h1>
 
         <div class="stat" data-target="6.7">0</div>
-        <p>Faster rendering performance</p>
+        <p>Faster response times</p>
 
         <div class="stat" data-target="4">0</div>
-        <p>Faster AI image generation</p>
+        <p>Optimized data handling</p>
     </div>
 </div>
 
+<!-- FINAL CTA -->
 <div class="section fade">
     <div>
-        <h1 class="gradient-text">Georgia Intelligence.</h1>
-        <h2>Works hard. You take it easy.</h2>
+        <h1 class="gradient-text">Upgrade Your Server</h1>
+        <h2>Georgia CAD is built for serious roleplay communities.</h2>
+        <p>Reliable. Fast. Powerful.</p>
     </div>
 </div>
 
-<script>
-const tablet = document.getElementById("tablet");
-const glass = document.getElementById("glass");
-const fades = document.querySelectorAll(".fade");
-const stats = document.querySelectorAll(".stat");
-
-document.querySelectorAll(".word").forEach(el => {
-    let text = el.innerText.split("");
-    el.innerHTML = text.map(letter => `<span>${letter}</span>`).join("");
-});
-
-function animateCount(el) {
-    let target = parseFloat(el.getAttribute("data-target"));
-    let count = 0;
-    let step = target / 50;
-
-    let interval = setInterval(() => {
-        count += step;
-        if (count >= target) {
-            el.innerText = target + "x";
-            clearInterval(interval);
-        } else {
-            el.innerText = count.toFixed(1);
-        }
-    }, 30);
-}
-
-window.addEventListener("scroll", () => {
-    const scroll = window.scrollY;
-    const maxScroll = document.body.scrollHeight - window.innerHeight;
-    const progress = scroll / maxScroll;
-
-    let scale = 0.7 + (progress * 0.6);
-    let y = 100 - (progress * 300);
-    tablet.style.transform = `scale(${scale}) translateY(${y}px)`;
-
-    glass.style.left = (-100 + progress * 200) + "%";
-
-    const trigger = window.innerHeight * 0.85;
-
-    fades.forEach(el => {
-        if (el.getBoundingClientRect().top < trigger) {
-            el.classList.add("active");
-        }
-    });
-
-    document.querySelectorAll(".word").forEach(el => {
-        if (el.getBoundingClientRect().top < trigger) {
-            el.classList.add("active");
-        }
-    });
-
-    stats.forEach(stat => {
-        if (stat.getBoundingClientRect().top < trigger && !stat.classList.contains("done")) {
-            stat.classList.add("done");
-            animateCount(stat);
-        }
-    });
-});
-</script>
-
 </body>
-</html>
