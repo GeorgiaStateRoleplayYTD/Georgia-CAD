@@ -1,223 +1,299 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Georgia CAD</title>
 
 <style>
-body {
+  body {
     margin: 0;
     background: black;
     color: white;
     font-family: Arial, sans-serif;
     overflow-x: hidden;
-}
+    position: relative;
+    z-index: 0;
+  }
 
-/* 🎥 VIDEO BACKGROUND */
-.video-bg {
+  /* YouTube iframe background wrapper */
+  .video-bg-wrapper {
     position: fixed;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -2;
-    opacity: 0.25;
-}
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none; /* So clicks pass through */
+    z-index: -3;
+    overflow: hidden;
+    opacity: 0.15; /* Make it subtle and transparent */
+    filter: brightness(0.7) contrast(1.2);
+  }
 
-/* 🚔 POLICE LIGHT OVERLAY */
-body::before {
+  .video-bg-wrapper iframe {
+    width: 177.77vh; /* 100vh * 16/9 ratio */
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* 🚔 POLICE LIGHT OVERLAY */
+  body::before {
     content: "";
     position: fixed;
     width: 200%;
     height: 100%;
     background: linear-gradient(90deg, rgba(255,0,0,0.2), transparent, rgba(0,100,255,0.2));
     animation: lights 6s linear infinite;
-    z-index: -1;
-}
+    z-index: -2;
+  }
 
-@keyframes lights {
+  @keyframes lights {
     0% { transform: translateX(-50%); }
     100% { transform: translateX(0%); }
-}
+  }
 
-/* Sections */
-.section {
-    height: 100vh;
+  /* Sections */
+  .section {
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 0 10%;
-}
+    padding: 3rem 10%;
+    position: relative;
+    z-index: 1;
+  }
 
-/* BIG TEXT */
-.gradient-text {
+  /* BIG TEXT */
+  .gradient-text {
     font-size: 5em;
     background: linear-gradient(90deg, #00c6ff, #0072ff, #ff004c);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-}
+    margin-bottom: 0.3em;
+  }
 
-h2 { font-size: 2.5em; }
-p { font-size: 1.4em; }
+  h2 {
+    font-size: 2.5em;
+    margin-top: 0;
+  }
 
-/* 🖱️ APPLE-STYLE TABLET */
-.tablet-section {
+  p, li {
+    font-size: 1.4em;
+    line-height: 1.6;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    max-width: 600px;
+    margin: 1em auto 2em auto;
+  }
+
+  ul li::before {
+    content: "✔️";
+    margin-right: 10px;
+    color: #00c6ff;
+  }
+
+  /* 🖱️ APPLE-STYLE TABLET */
+  .tablet-section {
     height: 200vh;
-}
+  }
 
-.tablet-wrapper {
+  .tablet-wrapper {
     position: sticky;
     top: 0;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-}
+    z-index: 2;
+  }
 
-.tablet {
+  .tablet {
     width: 900px;
     height: 550px;
     background: #111;
     border-radius: 30px;
     padding: 20px;
     box-shadow:
-        0 0 80px rgba(255,0,0,0.5),
-        0 0 120px rgba(0,100,255,0.5);
+      0 0 80px rgba(255,0,0,0.5),
+      0 0 120px rgba(0,100,255,0.5);
     transform: scale(0.6);
     transition: transform 0.2s ease;
-}
+  }
 
-.screen {
+  .screen {
     width: 100%;
     height: 100%;
     border-radius: 20px;
     overflow: hidden;
-}
+  }
 
-.screen img {
+  .screen img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
+  }
 
-/* 🎮 FADE / UI ANIMATIONS */
-.fade {
+  /* 🎮 FADE / UI ANIMATIONS */
+  .fade {
     opacity: 0;
     transform: translateY(80px);
     transition: all 1s ease;
-}
+  }
 
-.fade.active {
+  .fade.active {
     opacity: 1;
     transform: translateY(0);
-}
+  }
 
-/* Stats */
-.stat {
+  /* Stats */
+  .stat {
     font-size: 3em;
     margin: 20px 0;
-}
-</style>
-</head>
+  }
 
+  /* Content boxes for more info */
+  .info-box {
+    background: rgba(255 255 255 / 0.05);
+    border-radius: 15px;
+    padding: 20px 30px;
+    margin-top: 1.5em;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
+
+</head>
 <body>
 
-<!-- 🎥 VIDEO -->
-<video autoplay muted loop class="video-bg">
-    <source src="https://cdn.coverr.co/videos/coverr-police-car-lights-1584/1080p.mp4" type="video/mp4">
-</video>
+<!-- YOUTUBE VIDEO BACKGROUND -->
+<div class="video-bg-wrapper" aria-hidden="true">
+  <iframe src="https://www.youtube.com/embed/Jox6R5-rIH0?autoplay=1&mute=1&controls=0&loop=1&playlist=Jox6R5-rIH0&modestbranding=1&showinfo=0&iv_load_policy=3&disablekb=1" 
+          frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+</div>
 
 <!-- HERO -->
 <div class="section fade">
-    <div>
-        <h1 class="gradient-text">Georgia CAD</h1>
-        <h2>Next-Gen Dispatch System</h2>
-        <p>Standalone • QBcore • ESX</p>
-    </div>
+  <div>
+    <h1 class="gradient-text">Georgia CAD</h1>
+    <h2>Next-Gen Dispatch System</h2>
+    <p><strong>Standalone • QBcore • ESX</strong></p>
+  </div>
 </div>
 
 <!-- 🖱️ CAD SHOWCASE -->
 <div class="tablet-section">
-    <div class="tablet-wrapper">
-        <div class="tablet" id="tablet">
-            <div class="screen">
-                <img src="https://i.imgur.com/SKwBuLY.png">
-            </div>
-        </div>
+  <div class="tablet-wrapper">
+    <div class="tablet" id="tablet">
+      <div class="screen">
+        <img src="https://i.imgur.com/SKwBuLY.png" alt="Georgia CAD Interface Preview" />
+      </div>
     </div>
+  </div>
 </div>
 
-<!-- FEATURES -->
+<!-- DETAILS / FULL INFO -->
 <div class="section fade">
-    <div>
-        <h1 class="gradient-text">Features</h1>
-        <p>Real-time dispatch</p>
-        <p>Unit tracking</p>
-        <p>Logs & records</p>
-        <p>Modern FiveM UI</p>
-    </div>
+  <div class="info-box">
+    <h2>About Georgia CAD</h2>
+    <p>Georgia CAD is a powerful, next-generation dispatch system designed specifically for FiveM roleplay servers. It offers unmatched performance, a sleek modern UI, and supports multiple popular frameworks to give server admins and players an immersive and realistic dispatch experience.</p>
+    
+    <h3>Supported Frameworks</h3>
+    <ul>
+      <li>Standalone (Fully independent)</li>
+      <li>QBcore (Seamless integration)</li>
+      <li>ESX (Stable and feature rich)</li>
+    </ul>
+
+    <h3>Core Features</h3>
+    <ul>
+      <li>Real-time unit dispatch & tracking</li>
+      <li>Intuitive, responsive UI optimized for desktop and tablets</li>
+      <li>Comprehensive logs & records for accountability</li>
+      <li>Role-specific modules: Police, Fire/EMS, Civilian, Tow, Judicial</li>
+      <li>Dynamic stats & performance monitoring</li>
+      <li>Employee management & onboarding workflow</li>
+      <li>Secure authentication and session management</li>
+    </ul>
+
+    <h3>Performance & Optimization</h3>
+    <ul>
+      <li>Lightning-fast response times (6.7x faster rendering)</li>
+      <li>Optimized AI-driven image generation (4x faster)</li>
+      <li>Low resource footprint for smooth server performance</li>
+    </ul>
+
+    <h3>Why Choose Georgia CAD?</h3>
+    <p>Built with realism and performance at its core, Georgia CAD elevates roleplay experiences by providing dispatchers and players with the tools they need to maintain immersive, efficient, and engaging roleplay environments.</p>
+  </div>
 </div>
 
 <!-- PERFORMANCE -->
 <div class="section fade">
-    <div>
-        <h1 class="gradient-text">Performance</h1>
+  <div>
+    <h1 class="gradient-text">Performance</h1>
 
-        <div class="stat" data-target="6.7">0</div>
-        <p>Faster response</p>
+    <div class="stat" data-target="6.7">0</div>
+    <p>Faster rendering</p>
 
-        <div class="stat" data-target="4">0</div>
-        <p>Optimized systems</p>
-    </div>
+    <div class="stat" data-target="4">0</div>
+    <p>AI image generation</p>
+  </div>
 </div>
 
 <script>
-const tablet = document.getElementById("tablet");
-const fades = document.querySelectorAll(".fade");
-const stats = document.querySelectorAll(".stat");
+  const tablet = document.getElementById("tablet");
+  const fades = document.querySelectorAll(".fade");
+  const stats = document.querySelectorAll(".stat");
 
-function animateCount(el) {
+  function animateCount(el) {
     let target = parseFloat(el.getAttribute("data-target"));
     let count = 0;
     let step = target / 50;
 
     let interval = setInterval(() => {
-        count += step;
-        if (count >= target) {
-            el.innerText = target + "x";
-            clearInterval(interval);
-        } else {
-            el.innerText = count.toFixed(1);
-        }
+      count += step;
+      if (count >= target) {
+        el.innerText = target + "x";
+        clearInterval(interval);
+      } else {
+        el.innerText = count.toFixed(1);
+      }
     }, 30);
-}
+  }
 
-window.addEventListener("scroll", () => {
+  window.addEventListener("scroll", () => {
     const scroll = window.scrollY;
     const maxScroll = document.body.scrollHeight - window.innerHeight;
     const progress = scroll / maxScroll;
 
-    /* 🖱️ Apple zoom */
+    // Apple-style zoom effect on CAD
     let scale = 0.6 + (progress * 0.8);
     tablet.style.transform = `scale(${scale})`;
 
-    /* Fade */
+    // Fade in sections on scroll
     const trigger = window.innerHeight * 0.85;
 
     fades.forEach(el => {
-        if (el.getBoundingClientRect().top < trigger) {
-            el.classList.add("active");
-        }
+      if (el.getBoundingClientRect().top < trigger) {
+        el.classList.add("active");
+      }
     });
 
+    // Animate stats once visible
     stats.forEach(stat => {
-        if (stat.getBoundingClientRect().top < trigger && !stat.classList.contains("done")) {
-            stat.classList.add("done");
-            animateCount(stat);
-        }
+      if (stat.getBoundingClientRect().top < trigger && !stat.classList.contains("done")) {
+        stat.classList.add("done");
+        animateCount(stat);
+      }
     });
-});
+  });
 </script>
 
 </body>
