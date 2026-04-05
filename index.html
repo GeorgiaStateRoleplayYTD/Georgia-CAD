@@ -61,6 +61,55 @@ opacity:1;
 transform:translateY(0);
 }
 
+/* GLASS COMING SOON */
+
+.coming-glass{
+max-width:700px;
+margin:0 auto 40px auto;
+padding:30px;
+border-radius:20px;
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.1);
+backdrop-filter:blur(12px);
+box-shadow:
+0 0 30px rgba(0,120,255,0.2),
+0 0 50px rgba(255,0,80,0.15);
+}
+
+.coming-glass h2{
+margin-bottom:15px;
+font-size:2em;
+background:linear-gradient(90deg,#ff004c,#00c6ff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.coming-glass p{
+color:#ccc;
+line-height:1.6;
+}
+
+.coming-tags{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+justify-content:center;
+margin-top:20px;
+}
+
+.coming-tags span{
+padding:8px 18px;
+border-radius:25px;
+background:rgba(0,120,255,0.2);
+border:1px solid rgba(0,120,255,0.3);
+transition:.3s;
+}
+
+.coming-tags span:hover{
+background:rgba(0,120,255,0.4);
+transform:scale(1.05);
+}
+
 /* BUBBLES */
 
 .bubbles{
@@ -104,7 +153,7 @@ border-radius:20px;
 object-fit:cover;
 }
 
-/* GRID / CARDS */
+/* GRID */
 
 .grid{
 display:grid;
@@ -127,6 +176,16 @@ box-shadow:
 0 0 40px rgba(0,120,255,0.2);
 }
 
+.card h2{
+font-size:2em;
+color:#00c6ff;
+margin-bottom:10px;
+}
+
+.card p{
+color:#bbb;
+}
+
 .card ul{
 list-style:none;
 padding:0;
@@ -134,18 +193,7 @@ padding:0;
 
 .card li{
 margin:8px 0;
-font-size:.95em;
 color:#ccc;
-}
-
-.card h2{
-font-size:2em;
-margin-bottom:10px;
-color:#00c6ff;
-}
-
-.card p{
-color:#bbb;
 }
 
 /* BUTTON */
@@ -170,6 +218,23 @@ cursor:pointer;
 
 <div class="section reveal">
 <div>
+
+<div class="coming-glass">
+<h2>🚧 Coming Soon</h2>
+<p>
+Georgia CAD is currently in active development.<br><br>
+Built for <b>FiveM</b> and <b>Roblox</b> communities, delivering a next-generation dispatch, MDT, and records system.
+<br><br>
+Featuring advanced automation, custom keybinds, full API access, and seamless in-game integration.
+</p>
+
+<div class="coming-tags">
+<span>FiveM Ready</span>
+<span>Roblox Integration</span>
+<span>Custom Keybinds</span>
+<span>Live CAD System</span>
+</div>
+</div>
 
 <h1 class="gradient-text">Georgia CAD</h1>
 <h2>Next Generation Dispatch System</h2>
@@ -199,7 +264,6 @@ cursor:pointer;
 
 <div class="section reveal">
 <div>
-
 <h1 class="gradient-text">Features</h1>
 
 <div class="grid">
@@ -208,19 +272,19 @@ cursor:pointer;
 <h2>Advanced CAD</h2>
 <ul>
 <li>Real-time unit tracking</li>
-<li>Report builder system</li>
-<li>Live BOLO alerts</li>
-<li>Database syncing</li>
+<li>Report builder</li>
+<li>BOLO alerts</li>
+<li>Database sync</li>
 </ul>
 </div>
 
 <div class="card">
 <h2>Automation</h2>
 <ul>
-<li>Auto dispatch updates</li>
-<li>Smart call routing</li>
-<li>AI assisted logs</li>
-<li>Fast response tools</li>
+<li>Auto dispatch</li>
+<li>Smart routing</li>
+<li>AI logs</li>
+<li>Fast tools</li>
 </ul>
 </div>
 
@@ -228,7 +292,7 @@ cursor:pointer;
 <h2>Customization</h2>
 <ul>
 <li>UI themes</li>
-<li>Permissions system</li>
+<li>Permissions</li>
 <li>Custom alerts</li>
 <li>Editable fields</li>
 </ul>
@@ -243,46 +307,18 @@ cursor:pointer;
 
 <div class="section reveal">
 <div>
-
 <h1 class="gradient-text">Keybind System</h1>
 
 <div class="grid">
 
-<div class="card">
-<h2>F1</h2>
-<p>Open CAD System</p>
-</div>
-
-<div class="card">
-<h2>F2</h2>
-<p>Panic Button</p>
-</div>
-
-<div class="card">
-<h2>F3</h2>
-<p>Dispatch Menu</p>
-</div>
-
-<div class="card">
-<h2>F6</h2>
-<p>Open MDT</p>
-</div>
-
-<div class="card">
-<h2>CTRL + D</h2>
-<p>Toggle Duty Status</p>
-</div>
-
-<div class="card">
-<h2>ALT + C</h2>
-<p>Create Call</p>
-</div>
+<div class="card"><h2>F1</h2><p>Open CAD</p></div>
+<div class="card"><h2>F2</h2><p>Panic Button</p></div>
+<div class="card"><h2>F3</h2><p>Dispatch</p></div>
+<div class="card"><h2>F6</h2><p>MDT</p></div>
+<div class="card"><h2>CTRL+D</h2><p>Duty Toggle</p></div>
+<div class="card"><h2>ALT+C</h2><p>Create Call</p></div>
 
 </div>
-
-<p style="margin-top:25px;color:#aaa">
-Fully customizable per server & framework
-</p>
 
 </div>
 </div>
@@ -291,7 +327,6 @@ Fully customizable per server & framework
 
 <div class="section reveal">
 <div>
-
 <h1 class="gradient-text">Integrations</h1>
 
 <div class="grid">
@@ -299,8 +334,8 @@ Fully customizable per server & framework
 <div class="card">
 <h2>FiveM</h2>
 <ul>
-<li>QBcore & ESX ready</li>
-<li>Live player sync</li>
+<li>QBcore & ESX</li>
+<li>Player sync</li>
 <li>Vehicle lookup</li>
 <li>In-game UI</li>
 </ul>
@@ -309,10 +344,10 @@ Fully customizable per server & framework
 <div class="card">
 <h2>Roblox</h2>
 <ul>
-<li>Group rank sync</li>
-<li>Role permissions</li>
+<li>Group sync</li>
+<li>Permissions</li>
 <li>Live CAD panel</li>
-<li>API integration</li>
+<li>API</li>
 </ul>
 </div>
 
@@ -320,9 +355,9 @@ Fully customizable per server & framework
 <h2>API</h2>
 <ul>
 <li>REST API</li>
-<li>Discord webhooks</li>
+<li>Webhooks</li>
 <li>Custom integrations</li>
-<li>Developer friendly</li>
+<li>Dev tools</li>
 </ul>
 </div>
 
@@ -347,7 +382,7 @@ Fully customizable per server & framework
 
 <div class="card">
 <h2 class="stat" data-target="4">0</h2>
-<p>AI Processing Speed</p>
+<p>AI Processing</p>
 </div>
 
 </div>
@@ -359,42 +394,32 @@ Fully customizable per server & framework
 
 <div class="section reveal">
 <div>
-
 <h1 class="gradient-text">Get Started</h1>
-
 <button class="btn">Join Discord</button>
-
 </div>
 </div>
 
 <script>
 
-/* SCROLL REVEAL */
-
+/* SCROLL */
 const reveals=document.querySelectorAll(".reveal")
-
-function reveal(){
-let trigger=window.innerHeight*.85
+window.addEventListener("scroll",()=>{
 reveals.forEach(el=>{
-if(el.getBoundingClientRect().top<trigger){
+if(el.getBoundingClientRect().top<window.innerHeight*.85){
 el.classList.add("visible")
 }
 })
-}
-window.addEventListener("scroll",reveal)
+})
 
-/* TABLET 3D */
-
+/* TABLET */
 const tablet=document.getElementById("tablet")
-
 document.addEventListener("mousemove",e=>{
 let x=(window.innerWidth/2-e.pageX)/40
 let y=(window.innerHeight/2-e.pageY)/40
 tablet.style.transform=`rotateY(${x}deg) rotateX(${-y}deg)`
 })
 
-/* COUNTERS */
-
+/* COUNTER */
 const stats=document.querySelectorAll(".stat")
 
 function animateCount(el){
@@ -404,20 +429,18 @@ let step=target/50
 
 let interval=setInterval(()=>{
 count+=step
-
 if(count>=target){
 el.innerText=target+"x"
 clearInterval(interval)
 }else{
 el.innerText=count.toFixed(1)
 }
-
 },30)
 }
 
 window.addEventListener("scroll",()=>{
 stats.forEach(stat=>{
-if(stat.getBoundingClientRect().top<window.innerHeight*.8 && !stat.classList.contains("done")){
+if(stat.getBoundingClientRect().top<window.innerHeight*.8&&!stat.classList.contains("done")){
 stat.classList.add("done")
 animateCount(stat)
 }
