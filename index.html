@@ -19,45 +19,7 @@ font-family:Arial,Helvetica,sans-serif;
 overflow-x:hidden;
 }
 
-/* VIDEO BACKGROUND */
-
-.video-bg-wrapper{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:-3;
-opacity:.15;
-pointer-events:none;
-}
-
-.video-bg-wrapper iframe{
-width:177vh;
-height:100vh;
-position:absolute;
-left:50%;
-transform:translateX(-50%);
-}
-
-/* POLICE LIGHT EFFECT */
-
-body::before{
-content:"";
-position:fixed;
-width:200%;
-height:100%;
-background:linear-gradient(90deg,rgba(255,0,0,.25),transparent,rgba(0,120,255,.25));
-animation:lights 6s linear infinite;
-z-index:-2;
-}
-
-@keyframes lights{
-0%{transform:translateX(-50%)}
-100%{transform:translateX(0)}
-}
-
-/* SECTIONS */
+/* HERO */
 
 .section{
 min-height:100vh;
@@ -79,13 +41,38 @@ background:linear-gradient(90deg,#00c6ff,#0072ff,#ff004c);
 
 .reveal{
 opacity:0;
-transform:translateY(100px);
+transform:translateY(80px);
 transition:all 1.2s ease;
 }
 
 .reveal.visible{
 opacity:1;
 transform:translateY(0);
+}
+
+/* FRAMEWORK BUBBLES */
+
+.frameworks{
+display:flex;
+gap:15px;
+justify-content:center;
+margin-top:20px;
+flex-wrap:wrap;
+}
+
+.frameworks span{
+background:rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,0.15);
+padding:10px 22px;
+border-radius:30px;
+font-size:1.1em;
+backdrop-filter:blur(6px);
+transition:.3s;
+}
+
+.frameworks span:hover{
+transform:scale(1.08);
+background:rgba(0,120,255,0.25);
 }
 
 /* TABLET */
@@ -117,36 +104,6 @@ height:100%;
 object-fit:cover;
 }
 
-/* INFO BOX */
-
-.info-box{
-background:rgba(255,255,255,.05);
-padding:30px;
-border-radius:15px;
-max-width:900px;
-}
-
-/* GALLERY */
-
-.gallery{
-display:flex;
-gap:40px;
-overflow-x:auto;
-padding:40px;
-scroll-snap-type:x mandatory;
-}
-
-.gallery img{
-height:420px;
-border-radius:15px;
-scroll-snap-align:center;
-transition:.4s;
-}
-
-.gallery img:hover{
-transform:scale(1.05);
-}
-
 /* DEPARTMENTS */
 
 .departments{
@@ -158,15 +115,15 @@ margin-top:40px;
 }
 
 .dept img{
-width:160px;
-transition:.35s;
+width:150px;
+transition:.3s;
 }
 
 .dept img:hover{
 transform:scale(1.15) translateY(-10px);
 }
 
-/* DISPATCH */
+/* DISPATCH PANEL */
 
 .dispatch{
 background:rgba(255,255,255,.05);
@@ -188,7 +145,7 @@ animation:pulse 2s infinite;
 100%{opacity:1}
 }
 
-/* STATS */
+/* PERFORMANCE */
 
 .stat{
 font-size:3em;
@@ -197,51 +154,53 @@ margin:20px 0;
 
 /* PRICING */
 
-.pricing-container{
-display:flex;
-justify-content:center;
-gap:60px;
-flex-wrap:wrap;
+.pricing-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
 margin-top:40px;
 }
 
-.price-card{
-background:rgba(255,255,255,.05);
-padding:40px;
+.plan{
+background:rgba(255,255,255,0.05);
+padding:30px;
 border-radius:18px;
-width:300px;
+text-align:left;
 }
 
-.price-card ul{
+.plan h2{
+text-align:center;
+}
+
+.plan ul{
 list-style:none;
 padding:0;
+margin:20px 0;
 }
 
-.price-card li{
-margin:10px 0;
+.plan li{
+margin:8px 0;
+font-size:.95em;
 }
+
+.highlight{
+border:2px solid #0a84ff;
+box-shadow:0 0 30px rgba(0,120,255,.4);
+}
+
+/* BUTTONS */
 
 .buy-btn{
 background:#0a84ff;
 border:none;
 color:white;
-padding:14px 35px;
-font-size:1.3em;
-border-radius:30px;
+padding:12px 30px;
+font-size:1.2em;
+border-radius:25px;
 cursor:pointer;
-margin-top:10px;
-transition:.3s;
+display:block;
+margin:auto;
 }
-
-.buy-btn:hover{
-transform:scale(1.1);
-}
-
-.price-sub{
-opacity:.8;
-}
-
-/* DISCORD BUTTON */
 
 .discord-btn{
 background:#5865F2;
@@ -251,24 +210,6 @@ padding:16px 40px;
 font-size:1.2em;
 border-radius:30px;
 cursor:pointer;
-transition:.3s;
-}
-
-.discord-btn:hover{
-transform:scale(1.08);
-}
-
-/* TABLE */
-
-table{
-border-collapse:collapse;
-width:80%;
-margin:auto;
-}
-
-td,th{
-border:1px solid rgba(255,255,255,.2);
-padding:15px;
 }
 
 </style>
@@ -277,10 +218,6 @@ padding:15px;
 
 <body>
 
-<div class="video-bg-wrapper">
-<iframe src="https://www.youtube.com/embed/Jox6R5-rIH0?autoplay=1&mute=1&controls=0&loop=1&playlist=Jox6R5-rIH0"></iframe>
-</div>
-
 <!-- HERO -->
 
 <div class="section reveal">
@@ -288,15 +225,20 @@ padding:15px;
 <div>
 
 <h1 class="gradient-text">Georgia CAD</h1>
+
 <h2>Next Generation Dispatch System</h2>
 
-<p>Standalone • QBcore • ESX</p>
-
+<div class="frameworks">
+<span>Standalone</span>
+<span>QBcore</span>
+<span>ESX</span>
 </div>
 
 </div>
 
-<!-- TABLET -->
+</div>
+
+<!-- CAD TABLET -->
 
 <div class="section reveal">
 
@@ -309,24 +251,6 @@ padding:15px;
 </div>
 
 </div>
-
-</div>
-
-</div>
-
-<!-- ABOUT -->
-
-<div class="section reveal">
-
-<div class="info-box">
-
-<h2>About Georgia CAD</h2>
-
-<p>
-Professional dispatch and records system built for FiveM communities.
-</p>
-
-<img src="https://i.imgur.com/43NqCEk.png" style="width:100%;border-radius:12px;margin-top:30px;">
 
 </div>
 
@@ -373,7 +297,7 @@ Professional dispatch and records system built for FiveM communities.
 
 </div>
 
-<!-- DISPATCH -->
+<!-- DISPATCH DEMO -->
 
 <div class="section reveal">
 
@@ -413,54 +337,98 @@ Professional dispatch and records system built for FiveM communities.
 
 </div>
 
-<!-- PRICING -->
+<!-- SUBSCRIPTIONS -->
 
 <div class="section reveal">
 
 <div>
 
-<h1 class="gradient-text">Pricing</h1>
+<h1 class="gradient-text">Subscriptions</h1>
 
-<div class="pricing-container">
+<div class="pricing-grid">
 
-<div class="price-card">
-
-<h2>Standard</h2>
-
-<button class="buy-btn">$15</button>
-
-<p class="price-sub">Monthly</p>
-
+<div class="plan">
+<h2>Free</h2>
 <ul>
-<li>Full CAD System</li>
-<li>All Departments</li>
-<li>Basic Dispatch</li>
+<li>User Accounts: 35</li>
+<li>Servers: 1</li>
+<li>Custom Record Templates: 10</li>
+<li>Integrated Live Map ✔</li>
+<li>Custom Live Map Image ✖</li>
+<li>Bodycam Uploads: 10 min</li>
 </ul>
-
+<button class="buy-btn">$0</button>
 </div>
 
-<div class="price-card">
-
-<h2>Pro</h2>
-
-<button class="buy-btn">$65</button>
-
-<p class="price-sub">Monthly</p>
-
+<div class="plan">
+<h2>Starter</h2>
 <ul>
-<li>Everything in Standard</li>
-<li>Advanced Dispatch</li>
-<li>Analytics</li>
-<li>Priority Updates</li>
+<li>User Accounts: 50</li>
+<li>Servers: 1</li>
+<li>Custom Community ID ✔</li>
+<li>Custom Global Hotkeys ✔</li>
+<li>Integrated Live Map ✔</li>
+<li>Bodycam Uploads: 10 min</li>
 </ul>
+<button class="buy-btn">$5</button>
+</div>
 
+<div class="plan highlight">
+<h2>Standard</h2>
+<ul>
+<li>User Accounts: 100</li>
+<li>Servers: 1</li>
+<li>Custom Audio Notifications ✔</li>
+<li>Custom Login Screen ✔</li>
+<li>Integration API: Standard</li>
+<li>Discord Presence: Partial</li>
+<li>Bodycam Uploads: 100 min</li>
+</ul>
+<button class="buy-btn">$15</button>
+</div>
+
+<div class="plan">
+<h2>Plus</h2>
+<ul>
+<li>User Accounts: 250</li>
+<li>Servers: 2</li>
+<li>Custom Emails ✔</li>
+<li>Database Sync ✔</li>
+<li>Custom Street Names ✔</li>
+<li>Bodycam Uploads: 100 min</li>
+</ul>
+<button class="buy-btn">$35</button>
+</div>
+
+<div class="plan">
+<h2>Georgia One</h2>
+<ul>
+<li>User Accounts: Unlimited</li>
+<li>Servers: Unlimited</li>
+<li>Integration API: Pro</li>
+<li>Remove Branding ✔</li>
+<li>Database Friendly Mapping ✔</li>
+<li>Bodycam Uploads: 1000 min</li>
+</ul>
+<button class="buy-btn">$65</button>
+</div>
+
+<div class="plan">
+<h2>Pro</h2>
+<ul>
+<li>Georgia CAD Pro ✔</li>
+<li>Streaming Tools ✔</li>
+<li>Georgia CMS Pro ✔</li>
+<li>Georgia Radio Pro ✔</li>
+</ul>
+<button class="buy-btn">$120</button>
 </div>
 
 </div>
 
 <br><br>
 
-<a href="https://discord.gg/GeorgiaCAD" target="_blank">
+<a href="https://discord.gg/YOURDISCORD" target="_blank">
 <button class="discord-btn">Join our Discord</button>
 </a>
 
@@ -475,19 +443,13 @@ Professional dispatch and records system built for FiveM communities.
 const reveals=document.querySelectorAll(".reveal")
 
 function reveal(){
-
 let trigger=window.innerHeight*.85
 
 reveals.forEach(el=>{
-
 if(el.getBoundingClientRect().top<trigger){
-
 el.classList.add("visible")
-
 }
-
 })
-
 }
 
 window.addEventListener("scroll",reveal)
@@ -497,15 +459,12 @@ window.addEventListener("scroll",reveal)
 const tablet=document.getElementById("tablet")
 
 document.addEventListener("mousemove",e=>{
-
 let x=(window.innerWidth/2-e.pageX)/40
 let y=(window.innerHeight/2-e.pageY)/40
-
 tablet.style.transform=`rotateY(${x}deg) rotateX(${-y}deg)`
-
 })
 
-/* STATS */
+/* COUNTERS */
 
 const stats=document.querySelectorAll(".stat")
 
@@ -554,6 +513,5 @@ animateCount(stat)
 </script>
 
 </body>
-
 </html>
 ```
