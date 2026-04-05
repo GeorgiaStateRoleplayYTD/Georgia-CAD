@@ -6,6 +6,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Georgia CAD</title>
 
 <style>
@@ -18,7 +19,7 @@ font-family:Arial,Helvetica,sans-serif;
 overflow-x:hidden;
 }
 
-/* background video */
+/* VIDEO BACKGROUND */
 
 .video-bg-wrapper{
 position:fixed;
@@ -39,7 +40,7 @@ left:50%;
 transform:translateX(-50%);
 }
 
-/* police lights */
+/* POLICE LIGHT EFFECT */
 
 body::before{
 content:"";
@@ -56,7 +57,7 @@ z-index:-2;
 100%{transform:translateX(0)}
 }
 
-/* sections */
+/* SECTIONS */
 
 .section{
 min-height:100vh;
@@ -74,10 +75,7 @@ background:linear-gradient(90deg,#00c6ff,#0072ff,#ff004c);
 -webkit-text-fill-color:transparent;
 }
 
-h2{font-size:2.5em}
-p{font-size:1.3em;line-height:1.6}
-
-/* reveal animation */
+/* SCROLL REVEAL */
 
 .reveal{
 opacity:0;
@@ -90,7 +88,7 @@ opacity:1;
 transform:translateY(0);
 }
 
-/* tablet */
+/* TABLET */
 
 .tablet-wrapper{
 perspective:1200px;
@@ -119,7 +117,7 @@ height:100%;
 object-fit:cover;
 }
 
-/* info box */
+/* INFO BOX */
 
 .info-box{
 background:rgba(255,255,255,.05);
@@ -128,7 +126,7 @@ border-radius:15px;
 max-width:900px;
 }
 
-/* gallery */
+/* GALLERY */
 
 .gallery{
 display:flex;
@@ -142,14 +140,14 @@ scroll-snap-type:x mandatory;
 height:420px;
 border-radius:15px;
 scroll-snap-align:center;
-transition:transform .4s;
+transition:.4s;
 }
 
 .gallery img:hover{
-transform:scale(1.06);
+transform:scale(1.05);
 }
 
-/* department logos */
+/* DEPARTMENTS */
 
 .departments{
 display:flex;
@@ -159,28 +157,16 @@ flex-wrap:wrap;
 margin-top:40px;
 }
 
-.dept{
-text-align:center;
-}
-
 .dept img{
 width:160px;
-height:auto;
-transition:all .35s ease;
-filter:drop-shadow(0 0 10px rgba(0,0,0,0.6));
+transition:.35s;
 }
 
 .dept img:hover{
 transform:scale(1.15) translateY(-10px);
-filter:drop-shadow(0 0 20px rgba(0,100,255,0.7));
 }
 
-.dept p{
-margin-top:10px;
-font-size:1.3em;
-}
-
-/* dispatch panel */
+/* DISPATCH */
 
 .dispatch{
 background:rgba(255,255,255,.05);
@@ -202,14 +188,77 @@ animation:pulse 2s infinite;
 100%{opacity:1}
 }
 
-/* stats */
+/* STATS */
 
 .stat{
 font-size:3em;
 margin:20px 0;
 }
 
-/* table */
+/* PRICING */
+
+.pricing-container{
+display:flex;
+justify-content:center;
+gap:60px;
+flex-wrap:wrap;
+margin-top:40px;
+}
+
+.price-card{
+background:rgba(255,255,255,.05);
+padding:40px;
+border-radius:18px;
+width:300px;
+}
+
+.price-card ul{
+list-style:none;
+padding:0;
+}
+
+.price-card li{
+margin:10px 0;
+}
+
+.buy-btn{
+background:#0a84ff;
+border:none;
+color:white;
+padding:14px 35px;
+font-size:1.3em;
+border-radius:30px;
+cursor:pointer;
+margin-top:10px;
+transition:.3s;
+}
+
+.buy-btn:hover{
+transform:scale(1.1);
+}
+
+.price-sub{
+opacity:.8;
+}
+
+/* DISCORD BUTTON */
+
+.discord-btn{
+background:#5865F2;
+border:none;
+color:white;
+padding:16px 40px;
+font-size:1.2em;
+border-radius:30px;
+cursor:pointer;
+transition:.3s;
+}
+
+.discord-btn:hover{
+transform:scale(1.08);
+}
+
+/* TABLE */
 
 table{
 border-collapse:collapse;
@@ -220,10 +269,6 @@ margin:auto;
 td,th{
 border:1px solid rgba(255,255,255,.2);
 padding:15px;
-}
-
-th{
-background:rgba(255,255,255,.05);
 }
 
 </style>
@@ -239,16 +284,22 @@ background:rgba(255,255,255,.05);
 <!-- HERO -->
 
 <div class="section reveal">
+
 <div>
+
 <h1 class="gradient-text">Georgia CAD</h1>
 <h2>Next Generation Dispatch System</h2>
+
 <p>Standalone • QBcore • ESX</p>
-</div>
+
 </div>
 
-<!-- TABLET PREVIEW -->
+</div>
+
+<!-- TABLET -->
 
 <div class="section reveal">
+
 <div class="tablet-wrapper">
 
 <div class="tablet" id="tablet">
@@ -260,6 +311,7 @@ background:rgba(255,255,255,.05);
 </div>
 
 </div>
+
 </div>
 
 <!-- ABOUT -->
@@ -271,39 +323,10 @@ background:rgba(255,255,255,.05);
 <h2>About Georgia CAD</h2>
 
 <p>
-Georgia CAD is a next generation dispatch and records management system
-designed for professional FiveM roleplay communities.
-</p>
-
-<p>
-Built for realism, speed, and scalability,
-Georgia CAD allows communities to manage incidents,
-units, reports, vehicles, and identities through
-a modern Apple-style interface.
+Professional dispatch and records system built for FiveM communities.
 </p>
 
 <img src="https://i.imgur.com/43NqCEk.png" style="width:100%;border-radius:12px;margin-top:30px;">
-
-</div>
-
-</div>
-
-<!-- GALLERY -->
-
-<div class="section reveal">
-
-<div>
-
-<h1 class="gradient-text">CAD Interface</h1>
-
-<div class="gallery">
-
-<img src="https://i.imgur.com/SKwBuLY.png">
-<img src="https://i.imgur.com/43NqCEk.png">
-<img src="https://i.imgur.com/SKwBuLY.png">
-<img src="https://i.imgur.com/43NqCEk.png">
-
-</div>
 
 </div>
 
@@ -390,53 +413,56 @@ a modern Apple-style interface.
 
 </div>
 
-<!-- COMPARISON -->
+<!-- PRICING -->
 
 <div class="section reveal">
 
 <div>
 
-<h1 class="gradient-text">CAD Comparison</h1>
+<h1 class="gradient-text">Pricing</h1>
 
-<table>
+<div class="pricing-container">
 
-<tr>
-<th>Feature</th>
-<th>Georgia CAD</th>
-<th>Sonoran CAD</th>
-</tr>
+<div class="price-card">
 
-<tr>
-<td>Standalone Support</td>
-<td>✔</td>
-<td>❌</td>
-</tr>
+<h2>Standard</h2>
 
-<tr>
-<td>QBcore Integration</td>
-<td>✔</td>
-<td>Limited</td>
-</tr>
+<button class="buy-btn">$15</button>
 
-<tr>
-<td>ESX Support</td>
-<td>✔</td>
-<td>✔</td>
-</tr>
+<p class="price-sub">Monthly</p>
 
-<tr>
-<td>Custom Modules</td>
-<td>✔</td>
-<td>❌</td>
-</tr>
+<ul>
+<li>Full CAD System</li>
+<li>All Departments</li>
+<li>Basic Dispatch</li>
+</ul>
 
-<tr>
-<td>Performance</td>
-<td>6.7x Faster</td>
-<td>Standard</td>
-</tr>
+</div>
 
-</table>
+<div class="price-card">
+
+<h2>Pro</h2>
+
+<button class="buy-btn">$65</button>
+
+<p class="price-sub">Monthly</p>
+
+<ul>
+<li>Everything in Standard</li>
+<li>Advanced Dispatch</li>
+<li>Analytics</li>
+<li>Priority Updates</li>
+</ul>
+
+</div>
+
+</div>
+
+<br><br>
+
+<a href="https://discord.gg/GeorgiaCAD" target="_blank">
+<button class="discord-btn">Join our Discord</button>
+</a>
 
 </div>
 
@@ -444,13 +470,13 @@ a modern Apple-style interface.
 
 <script>
 
-/* reveal animation */
+/* SCROLL REVEAL */
 
-const reveals=document.querySelectorAll(".reveal");
+const reveals=document.querySelectorAll(".reveal")
 
 function reveal(){
 
-let trigger=window.innerHeight*.85;
+let trigger=window.innerHeight*.85
 
 reveals.forEach(el=>{
 
@@ -464,12 +490,11 @@ el.classList.add("visible")
 
 }
 
-window.addEventListener("scroll",reveal);
+window.addEventListener("scroll",reveal)
 
+/* TABLET 3D */
 
-/* tablet 3D */
-
-const tablet=document.getElementById("tablet");
+const tablet=document.getElementById("tablet")
 
 document.addEventListener("mousemove",e=>{
 
@@ -480,8 +505,7 @@ tablet.style.transform=`rotateY(${x}deg) rotateX(${-y}deg)`
 
 })
 
-
-/* stats counter */
+/* STATS */
 
 const stats=document.querySelectorAll(".stat")
 
@@ -530,5 +554,6 @@ animateCount(stat)
 </script>
 
 </body>
+
 </html>
 ```
