@@ -20,11 +20,12 @@ body::before {
     position: fixed;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at left, rgba(255,0,0,0.15), transparent 50%),
-                radial-gradient(circle at right, rgba(0,100,255,0.15), transparent 50%);
+    background: radial-gradient(circle at left, rgba(255,0,0,0.2), transparent 50%),
+                radial-gradient(circle at right, rgba(0,100,255,0.2), transparent 50%);
     z-index: -1;
 }
 
+/* Sections */
 .section {
     height: 100vh;
     display: flex;
@@ -34,13 +35,62 @@ body::before {
     padding: 0 10%;
 }
 
+/* BIG text */
 .gradient-text {
-    font-size: 3em;
+    font-size: 5em;
     background: linear-gradient(90deg, #00c6ff, #0072ff, #ff004c);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
+h2 {
+    font-size: 2.5em;
+}
+
+p {
+    font-size: 1.5em;
+}
+
+/* Tablet showcase */
+.tablet-section {
+    height: 150vh;
+}
+
+.tablet-wrapper {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tablet {
+    width: 900px;
+    height: 550px;
+    background: #111;
+    border-radius: 30px;
+    padding: 20px;
+    box-shadow:
+        0 0 60px rgba(255,0,0,0.4),
+        0 0 120px rgba(0,100,255,0.4);
+}
+
+/* Screen */
+.screen {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.screen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Fade animation */
 .fade {
     opacity: 0;
     transform: translateY(60px);
@@ -52,8 +102,9 @@ body::before {
     transform: translateY(0);
 }
 
+/* Stats */
 .stat {
-    font-size: 2em;
+    font-size: 3em;
     margin: 20px 0;
 }
 </style>
@@ -61,6 +112,7 @@ body::before {
 
 <body>
 
+<!-- HERO -->
 <div class="section fade">
     <div>
         <h1 class="gradient-text">Georgia CAD</h1>
@@ -69,22 +121,35 @@ body::before {
     </div>
 </div>
 
-<div class="section fade">
-    <div>
-        <h1 class="gradient-text">Features</h1>
-        <p>Real-time dispatch</p>
-        <p>Unit tracking</p>
-        <p>CAD records & logs</p>
-        <p>Clean modern UI</p>
+<!-- CAD PREVIEW (THIS FIXES YOUR ISSUE) -->
+<div class="tablet-section">
+    <div class="tablet-wrapper">
+        <div class="tablet">
+            <div class="screen">
+                <img src="https://i.imgur.com/SKwBuLY.png">
+            </div>
+        </div>
     </div>
 </div>
 
+<!-- FEATURES -->
+<div class="section fade">
+    <div>
+        <h1 class="gradient-text">Features</h1>
+        <p>Real-time dispatch system</p>
+        <p>Unit tracking</p>
+        <p>CAD records & logs</p>
+        <p>Modern UI design</p>
+    </div>
+</div>
+
+<!-- PERFORMANCE -->
 <div class="section fade">
     <div>
         <h1 class="gradient-text">Performance</h1>
 
         <div class="stat" data-target="6.7">0</div>
-        <p>Faster response</p>
+        <p>Faster response times</p>
 
         <div class="stat" data-target="4">0</div>
         <p>Optimized systems</p>
