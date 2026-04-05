@@ -6,295 +6,185 @@
 <title>Georgia CAD</title>
 
 <style>
-  body {
-    margin: 0;
-    background: black;
-    color: white;
-    font-family: Arial, sans-serif;
+  /* Reset */
+  body, html {
+    margin: 0; 
+    padding: 0;
+    height: 100%;
     overflow-x: hidden;
+    font-family: Arial, sans-serif;
+    color: white;
+    background: black;
     position: relative;
     z-index: 0;
   }
 
-  /* YouTube iframe background wrapper */
+  /* Video background wrapper */
   .video-bg-wrapper {
     position: fixed;
     top: 0; left: 0;
     width: 100vw;
     height: 100vh;
-    pointer-events: none; /* So clicks pass through */
+    pointer-events: none;
     z-index: -3;
     overflow: hidden;
-    opacity: 0.15; /* Make it subtle and transparent */
+    opacity: 0.15; /* subtle transparency */
     filter: brightness(0.7) contrast(1.2);
   }
 
+  /* YouTube iframe styling for full cover */
   .video-bg-wrapper iframe {
-    width: 177.77vh; /* 100vh * 16/9 ratio */
-    height: 100vh;
     position: absolute;
-    top: 0;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    width: 177.78vh; /* 100vh * 16/9 aspect ratio */
+    height: 100vh;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
   }
 
-  /* 🚔 POLICE LIGHT OVERLAY */
+  /* 🚔 Police glow background */
   body::before {
     content: "";
     position: fixed;
-    width: 200%;
+    width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, rgba(255,0,0,0.2), transparent, rgba(0,100,255,0.2));
-    animation: lights 6s linear infinite;
+    background: 
+      radial-gradient(circle at left, rgba(255,0,0,0.15), transparent 50%),
+      radial-gradient(circle at right, rgba(0,100,255,0.15), transparent 50%);
     z-index: -2;
   }
 
-  @keyframes lights {
-    0% { transform: translateX(-50%); }
-    100% { transform: translateX(0%); }
-  }
-
-  /* Sections */
-  .section {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 3rem 10%;
+  /* Content container */
+  .content {
     position: relative;
     z-index: 1;
+    text-align: center;
+    padding: 4rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
   }
 
-  /* BIG TEXT */
-  .gradient-text {
-    font-size: 5em;
-    background: linear-gradient(90deg, #00c6ff, #0072ff, #ff004c);
+  /* Title styling */
+  h1.gradient-text {
+    font-size: 4rem;
+    background: linear-gradient(90deg, #00c6ff, #6a4bff, #ff004c);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 0.3em;
+    margin-bottom: 0.25rem;
   }
 
-  h2 {
-    font-size: 2.5em;
+  h2.subtitle {
+    font-size: 1.75rem;
+    font-weight: 600;
     margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: #ccc;
   }
 
-  p, li {
-    font-size: 1.4em;
+  /* Info text */
+  .info-text {
+    font-size: 1.2rem;
     line-height: 1.6;
+    margin-bottom: 2rem;
   }
 
-  ul {
+  /* Feature list styling */
+  ul.features {
     list-style: none;
     padding: 0;
+    font-size: 1.2rem;
     max-width: 600px;
-    margin: 1em auto 2em auto;
+    margin: 0 auto 3rem auto;
   }
 
-  ul li::before {
-    content: "✔️";
-    margin-right: 10px;
+  ul.features li {
+    margin-bottom: 0.75rem;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  ul.features li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
     color: #00c6ff;
+    font-weight: bold;
   }
 
-  /* 🖱️ APPLE-STYLE TABLET */
-  .tablet-section {
-    height: 200vh;
-  }
-
-  .tablet-wrapper {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2;
-  }
-
-  .tablet {
-    width: 900px;
-    height: 550px;
-    background: #111;
-    border-radius: 30px;
-    padding: 20px;
-    box-shadow:
-      0 0 80px rgba(255,0,0,0.5),
-      0 0 120px rgba(0,100,255,0.5);
-    transform: scale(0.6);
-    transition: transform 0.2s ease;
-  }
-
-  .screen {
-    width: 100%;
-    height: 100%;
-    border-radius: 20px;
-    overflow: hidden;
-  }
-
-  .screen img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  /* 🎮 FADE / UI ANIMATIONS */
-  .fade {
-    opacity: 0;
-    transform: translateY(80px);
-    transition: all 1s ease;
-  }
-
-  .fade.active {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Stats */
-  .stat {
-    font-size: 3em;
-    margin: 20px 0;
-  }
-
-  /* Content boxes for more info */
-  .info-box {
-    background: rgba(255 255 255 / 0.05);
+  /* Image styling */
+  .cad-image {
+    max-width: 100%;
     border-radius: 15px;
-    padding: 20px 30px;
-    margin-top: 1.5em;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    box-shadow:
+      0 0 15px rgba(255, 0, 0, 0.7),
+      0 0 30px rgba(0, 100, 255, 0.7);
+    margin-bottom: 3rem;
+  }
+
+  /* Footer note */
+  .footer-note {
+    font-size: 0.9rem;
+    color: #777;
+  }
+
+  /* Responsive text scaling */
+  @media (max-width: 600px) {
+    h1.gradient-text {
+      font-size: 2.5rem;
+    }
+    h2.subtitle {
+      font-size: 1.3rem;
+    }
+    .info-text, ul.features {
+      font-size: 1rem;
+    }
   }
 </style>
-
 </head>
+
 <body>
 
-<!-- YOUTUBE VIDEO BACKGROUND -->
-<div class="video-bg-wrapper" aria-hidden="true">
-  <iframe src="https://www.youtube.com/embed/Jox6R5-rIH0?autoplay=1&mute=1&controls=0&loop=1&playlist=Jox6R5-rIH0&modestbranding=1&showinfo=0&iv_load_policy=3&disablekb=1" 
-          frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-</div>
+  <!-- Video Background -->
+  <div class="video-bg-wrapper" aria-hidden="true">
+    <iframe 
+      src="https://www.youtube.com/embed/Jox6R5-rIH0?autoplay=1&mute=1&controls=0&loop=1&playlist=Jox6R5-rIH0&modestbranding=1&showinfo=0&iv_load_policy=3&disablekb=1" 
+      frameborder="0" allow="autoplay; fullscreen" allowfullscreen
+      ></iframe>
+  </div>
 
-<!-- HERO -->
-<div class="section fade">
-  <div>
+  <!-- Police Glow Background (via body::before) -->
+
+  <!-- Main Content -->
+  <div class="content">
     <h1 class="gradient-text">Georgia CAD</h1>
-    <h2>Next-Gen Dispatch System</h2>
-    <p><strong>Standalone • QBcore • ESX</strong></p>
-  </div>
-</div>
+    <h2 class="subtitle">Next-Gen Dispatch System</h2>
+    <p class="info-text">
+      Georgia CAD is a cutting-edge, next-generation dispatch system designed specifically for roleplay servers.<br>
+      Built for performance, realism, and ultimate control, it supports multiple popular frameworks including Standalone, QBcore, and ESX.
+    </p>
 
-<!-- 🖱️ CAD SHOWCASE -->
-<div class="tablet-section">
-  <div class="tablet-wrapper">
-    <div class="tablet" id="tablet">
-      <div class="screen">
-        <img src="https://i.imgur.com/SKwBuLY.png" alt="Georgia CAD Interface Preview" />
-      </div>
-    </div>
-  </div>
-</div>
+    <img 
+      src="https://i.imgur.com/SKwBuLY.png" 
+      alt="Georgia CAD User Interface" 
+      class="cad-image"
+    />
 
-<!-- DETAILS / FULL INFO -->
-<div class="section fade">
-  <div class="info-box">
-    <h2>About Georgia CAD</h2>
-    <p>Georgia CAD is a powerful, next-generation dispatch system designed specifically for FiveM roleplay servers. It offers unmatched performance, a sleek modern UI, and supports multiple popular frameworks to give server admins and players an immersive and realistic dispatch experience.</p>
-    
-    <h3>Supported Frameworks</h3>
-    <ul>
-      <li>Standalone (Fully independent)</li>
-      <li>QBcore (Seamless integration)</li>
-      <li>ESX (Stable and feature rich)</li>
+    <ul class="features">
+      <li>🔥 Moving and glowing police lights for immersive realism</li>
+      <li>🎥 Full-screen, subtle YouTube video background to set the mood</li>
+      <li>🖱️ Smooth scroll zoom interactions inspired by Apple’s UI</li>
+      <li>🎮 Responsive FiveM-style animations to enhance user experience</li>
+      <li>⚙️ Supports Standalone, QBcore, and ESX frameworks seamlessly</li>
+      <li>⚡ Blazing fast rendering and AI-powered features</li>
+      <li>🔐 Secure user sessions with role-based access control</li>
+      <li>📊 Live stats, updates, and real-time ride-along logs</li>
+      <li>👮 Dedicated portals for Police, Fire/EMS, Tow, Civilian & Judicial departments</li>
+      <li>🏆 Employee of the Month recognition & onboarding system</li>
     </ul>
 
-    <h3>Core Features</h3>
-    <ul>
-      <li>Real-time unit dispatch & tracking</li>
-      <li>Intuitive, responsive UI optimized for desktop and tablets</li>
-      <li>Comprehensive logs & records for accountability</li>
-      <li>Role-specific modules: Police, Fire/EMS, Civilian, Tow, Judicial</li>
-      <li>Dynamic stats & performance monitoring</li>
-      <li>Employee management & onboarding workflow</li>
-      <li>Secure authentication and session management</li>
-    </ul>
-
-    <h3>Performance & Optimization</h3>
-    <ul>
-      <li>Lightning-fast response times (6.7x faster rendering)</li>
-      <li>Optimized AI-driven image generation (4x faster)</li>
-      <li>Low resource footprint for smooth server performance</li>
-    </ul>
-
-    <h3>Why Choose Georgia CAD?</h3>
-    <p>Built with realism and performance at its core, Georgia CAD elevates roleplay experiences by providing dispatchers and players with the tools they need to maintain immersive, efficient, and engaging roleplay environments.</p>
+    <p class="footer-note">Built for the Georgia State Roleplay community. Experience power, performance, and control all in one place.</p>
   </div>
-</div>
-
-<!-- PERFORMANCE -->
-<div class="section fade">
-  <div>
-    <h1 class="gradient-text">Performance</h1>
-
-    <div class="stat" data-target="6.7">0</div>
-    <p>Faster rendering</p>
-
-    <div class="stat" data-target="4">0</div>
-    <p>AI image generation</p>
-  </div>
-</div>
-
-<script>
-  const tablet = document.getElementById("tablet");
-  const fades = document.querySelectorAll(".fade");
-  const stats = document.querySelectorAll(".stat");
-
-  function animateCount(el) {
-    let target = parseFloat(el.getAttribute("data-target"));
-    let count = 0;
-    let step = target / 50;
-
-    let interval = setInterval(() => {
-      count += step;
-      if (count >= target) {
-        el.innerText = target + "x";
-        clearInterval(interval);
-      } else {
-        el.innerText = count.toFixed(1);
-      }
-    }, 30);
-  }
-
-  window.addEventListener("scroll", () => {
-    const scroll = window.scrollY;
-    const maxScroll = document.body.scrollHeight - window.innerHeight;
-    const progress = scroll / maxScroll;
-
-    // Apple-style zoom effect on CAD
-    let scale = 0.6 + (progress * 0.8);
-    tablet.style.transform = `scale(${scale})`;
-
-    // Fade in sections on scroll
-    const trigger = window.innerHeight * 0.85;
-
-    fades.forEach(el => {
-      if (el.getBoundingClientRect().top < trigger) {
-        el.classList.add("active");
-      }
-    });
-
-    // Animate stats once visible
-    stats.forEach(stat => {
-      if (stat.getBoundingClientRect().top < trigger && !stat.classList.contains("done")) {
-        stat.classList.add("done");
-        animateCount(stat);
-      }
-    });
-  });
-</script>
 
 </body>
 </html>
