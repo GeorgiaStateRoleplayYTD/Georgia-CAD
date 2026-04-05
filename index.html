@@ -1,7 +1,9 @@
 ```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Georgia CAD</title>
@@ -73,7 +75,6 @@ background:linear-gradient(90deg,#00c6ff,#0072ff,#ff004c);
 }
 
 h2{font-size:2.5em}
-
 p{font-size:1.3em;line-height:1.6}
 
 /* reveal animation */
@@ -148,22 +149,35 @@ transition:transform .4s;
 transform:scale(1.06);
 }
 
-/* departments */
+/* department logos */
 
 .departments{
 display:flex;
-gap:40px;
-flex-wrap:wrap;
+gap:50px;
 justify-content:center;
+flex-wrap:wrap;
+margin-top:40px;
 }
 
 .dept{
-font-size:60px;
-transition:.3s;
+text-align:center;
 }
 
-.dept:hover{
-transform:translateY(-10px) scale(1.2);
+.dept img{
+width:160px;
+height:auto;
+transition:all .35s ease;
+filter:drop-shadow(0 0 10px rgba(0,0,0,0.6));
+}
+
+.dept img:hover{
+transform:scale(1.15) translateY(-10px);
+filter:drop-shadow(0 0 20px rgba(0,100,255,0.7));
+}
+
+.dept p{
+margin-top:10px;
+font-size:1.3em;
 }
 
 /* dispatch panel */
@@ -213,6 +227,7 @@ background:rgba(255,255,255,.05);
 }
 
 </style>
+
 </head>
 
 <body>
@@ -231,10 +246,11 @@ background:rgba(255,255,255,.05);
 </div>
 </div>
 
-<!-- TABLET -->
+<!-- TABLET PREVIEW -->
 
 <div class="section reveal">
 <div class="tablet-wrapper">
+
 <div class="tablet" id="tablet">
 
 <div class="screen">
@@ -242,12 +258,14 @@ background:rgba(255,255,255,.05);
 </div>
 
 </div>
+
 </div>
 </div>
 
 <!-- ABOUT -->
 
 <div class="section reveal">
+
 <div class="info-box">
 
 <h2>About Georgia CAD</h2>
@@ -255,21 +273,19 @@ background:rgba(255,255,255,.05);
 <p>
 Georgia CAD is a next generation dispatch and records management system
 designed for professional FiveM roleplay communities.
-It provides high performance tools for dispatchers,
-law enforcement, EMS, and civilians while maintaining
-smooth server performance.
 </p>
 
 <p>
 Built for realism, speed, and scalability,
-Georgia CAD allows communities to manage
-incidents, units, reports, vehicles, and identities
-all inside a modern Apple-style interface.
+Georgia CAD allows communities to manage incidents,
+units, reports, vehicles, and identities through
+a modern Apple-style interface.
 </p>
 
 <img src="https://i.imgur.com/43NqCEk.png" style="width:100%;border-radius:12px;margin-top:30px;">
 
 </div>
+
 </div>
 
 <!-- GALLERY -->
@@ -303,11 +319,30 @@ all inside a modern Apple-style interface.
 
 <div class="departments">
 
-<div class="dept">🚓<p>Police</p></div>
-<div class="dept">🚑<p>EMS</p></div>
-<div class="dept">🚒<p>Fire</p></div>
-<div class="dept">🧍<p>Civilian</p></div>
-<div class="dept">🚚<p>Tow</p></div>
+<div class="dept">
+<img src="https://i.imgur.com/hp1458M.png">
+<p>Police</p>
+</div>
+
+<div class="dept">
+<img src="https://i.imgur.com/t13pz77.png">
+<p>Fire</p>
+</div>
+
+<div class="dept">
+<img src="https://i.imgur.com/XLQcqoH.png">
+<p>Tow</p>
+</div>
+
+<div class="dept">
+<img src="https://i.imgur.com/4LhSRKU.png">
+<p>EMS</p>
+</div>
+
+<div class="dept">
+<img src="https://i.imgur.com/UclPhFm.png">
+<p>Civilian</p>
+</div>
 
 </div>
 
@@ -327,9 +362,9 @@ all inside a modern Apple-style interface.
 
 <div class="call">911 CALL: Robbery in Progress</div>
 
-<p>Unit 1 responding</p>
-<p>Unit 3 en route</p>
-<p>EMS staging</p>
+<p>Unit 1 Responding</p>
+<p>Unit 3 En Route</p>
+<p>EMS Staging</p>
 
 </div>
 
@@ -409,7 +444,7 @@ all inside a modern Apple-style interface.
 
 <script>
 
-/* reveal scroll */
+/* reveal animation */
 
 const reveals=document.querySelectorAll(".reveal");
 
@@ -420,7 +455,9 @@ let trigger=window.innerHeight*.85;
 reveals.forEach(el=>{
 
 if(el.getBoundingClientRect().top<trigger){
+
 el.classList.add("visible")
+
 }
 
 })
@@ -444,7 +481,7 @@ tablet.style.transform=`rotateY(${x}deg) rotateX(${-y}deg)`
 })
 
 
-/* stats */
+/* stats counter */
 
 const stats=document.querySelectorAll(".stat")
 
@@ -459,12 +496,16 @@ let interval=setInterval(()=>{
 count+=step
 
 if(count>=target){
+
 el.innerText=target+"x"
 clearInterval(interval)
+
 }
 
 else{
+
 el.innerText=count.toFixed(1)
+
 }
 
 },30)
