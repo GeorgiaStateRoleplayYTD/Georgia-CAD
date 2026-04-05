@@ -14,15 +14,30 @@ body {
     overflow-x: hidden;
 }
 
-/* Background glow */
-body::before {
-    content: "";
+/* 🎥 VIDEO BACKGROUND */
+.video-bg {
     position: fixed;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at left, rgba(255,0,0,0.2), transparent 50%),
-                radial-gradient(circle at right, rgba(0,100,255,0.2), transparent 50%);
+    object-fit: cover;
+    z-index: -2;
+    opacity: 0.25;
+}
+
+/* 🚔 POLICE LIGHT OVERLAY */
+body::before {
+    content: "";
+    position: fixed;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255,0,0,0.2), transparent, rgba(0,100,255,0.2));
+    animation: lights 6s linear infinite;
     z-index: -1;
+}
+
+@keyframes lights {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0%); }
 }
 
 /* Sections */
@@ -35,7 +50,7 @@ body::before {
     padding: 0 10%;
 }
 
-/* BIG text */
+/* BIG TEXT */
 .gradient-text {
     font-size: 5em;
     background: linear-gradient(90deg, #00c6ff, #0072ff, #ff004c);
@@ -43,17 +58,12 @@ body::before {
     -webkit-text-fill-color: transparent;
 }
 
-h2 {
-    font-size: 2.5em;
-}
+h2 { font-size: 2.5em; }
+p { font-size: 1.4em; }
 
-p {
-    font-size: 1.5em;
-}
-
-/* Tablet showcase */
+/* 🖱️ APPLE-STYLE TABLET */
 .tablet-section {
-    height: 150vh;
+    height: 200vh;
 }
 
 .tablet-wrapper {
@@ -72,11 +82,12 @@ p {
     border-radius: 30px;
     padding: 20px;
     box-shadow:
-        0 0 60px rgba(255,0,0,0.4),
-        0 0 120px rgba(0,100,255,0.4);
+        0 0 80px rgba(255,0,0,0.5),
+        0 0 120px rgba(0,100,255,0.5);
+    transform: scale(0.6);
+    transition: transform 0.2s ease;
 }
 
-/* Screen */
 .screen {
     width: 100%;
     height: 100%;
@@ -90,10 +101,10 @@ p {
     object-fit: cover;
 }
 
-/* Fade animation */
+/* 🎮 FADE / UI ANIMATIONS */
 .fade {
     opacity: 0;
-    transform: translateY(60px);
+    transform: translateY(80px);
     transition: all 1s ease;
 }
 
@@ -112,19 +123,24 @@ p {
 
 <body>
 
+<!-- 🎥 VIDEO -->
+<video autoplay muted loop class="video-bg">
+    <source src="https://cdn.coverr.co/videos/coverr-police-car-lights-1584/1080p.mp4" type="video/mp4">
+</video>
+
 <!-- HERO -->
 <div class="section fade">
     <div>
         <h1 class="gradient-text">Georgia CAD</h1>
-        <h2>Next-Generation Dispatch System</h2>
+        <h2>Next-Gen Dispatch System</h2>
         <p>Standalone • QBcore • ESX</p>
     </div>
 </div>
 
-<!-- CAD PREVIEW (THIS FIXES YOUR ISSUE) -->
+<!-- 🖱️ CAD SHOWCASE -->
 <div class="tablet-section">
     <div class="tablet-wrapper">
-        <div class="tablet">
+        <div class="tablet" id="tablet">
             <div class="screen">
                 <img src="https://i.imgur.com/SKwBuLY.png">
             </div>
@@ -136,10 +152,10 @@ p {
 <div class="section fade">
     <div>
         <h1 class="gradient-text">Features</h1>
-        <p>Real-time dispatch system</p>
+        <p>Real-time dispatch</p>
         <p>Unit tracking</p>
-        <p>CAD records & logs</p>
-        <p>Modern UI design</p>
+        <p>Logs & records</p>
+        <p>Modern FiveM UI</p>
     </div>
 </div>
 
@@ -149,7 +165,7 @@ p {
         <h1 class="gradient-text">Performance</h1>
 
         <div class="stat" data-target="6.7">0</div>
-        <p>Faster response times</p>
+        <p>Faster response</p>
 
         <div class="stat" data-target="4">0</div>
         <p>Optimized systems</p>
@@ -157,6 +173,7 @@ p {
 </div>
 
 <script>
+const tablet = document.getElementById("tablet");
 const fades = document.querySelectorAll(".fade");
 const stats = document.querySelectorAll(".stat");
 
@@ -177,6 +194,15 @@ function animateCount(el) {
 }
 
 window.addEventListener("scroll", () => {
+    const scroll = window.scrollY;
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    const progress = scroll / maxScroll;
+
+    /* 🖱️ Apple zoom */
+    let scale = 0.6 + (progress * 0.8);
+    tablet.style.transform = `scale(${scale})`;
+
+    /* Fade */
     const trigger = window.innerHeight * 0.85;
 
     fades.forEach(el => {
