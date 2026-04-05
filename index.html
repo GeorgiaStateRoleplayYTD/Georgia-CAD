@@ -1,84 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Georgia CAD</title>
+
+<style>
+body {
+    margin: 0;
+    background: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+/* Background glow */
+body::before {
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at left, rgba(255,0,0,0.15), transparent 50%),
+                radial-gradient(circle at right, rgba(0,100,255,0.15), transparent 50%);
+    z-index: -1;
+}
+
+.section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 10%;
+}
+
+.gradient-text {
+    font-size: 3em;
+    background: linear-gradient(90deg, #00c6ff, #0072ff, #ff004c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.fade {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 1s ease;
+}
+
+.fade.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.stat {
+    font-size: 2em;
+    margin: 20px 0;
+}
+</style>
+</head>
+
 <body>
 
-<!-- HERO -->
 <div class="section fade">
     <div>
-        <h1 class="gradient-text word">Georgia CAD</h1>
-        <h2>Next-Generation Dispatch System for Roleplay Servers</h2>
-        <p>Built for performance. Designed for realism. Powered for you.</p>
+        <h1 class="gradient-text">Georgia CAD</h1>
+        <h2>Next-Generation Dispatch System</h2>
+        <p>Standalone • QBcore • ESX</p>
     </div>
 </div>
 
-<!-- TABLET SHOWCASE -->
-<div class="tablet-section">
-    <div class="tablet-wrapper">
-        <div class="tablet" id="tablet">
-            <div class="glass" id="glass"></div>
-            <div class="screen">
-                <img src="https://i.imgur.com/SKwBuLY.png">
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- ABOUT -->
-<div class="section fade">
-    <div>
-        <h1 class="gradient-text">What is Georgia CAD?</h1>
-        <p>
-            Georgia CAD is a powerful Computer-Aided Dispatch system designed for FiveM roleplay servers.
-            It provides law enforcement, fire, EMS, and civilians with a seamless and immersive experience.
-        </p>
-    </div>
-</div>
-
-<!-- FEATURES -->
 <div class="section fade">
     <div>
         <h1 class="gradient-text">Features</h1>
-        <p>• Real-time dispatch system</p>
-        <p>• Unit status tracking</p>
-        <p>• Call management & logs</p>
-        <p>• Civilian profiles & records</p>
-        <p>• BOLO & warrant system</p>
-        <p>• Clean, modern UI</p>
+        <p>Real-time dispatch</p>
+        <p>Unit tracking</p>
+        <p>CAD records & logs</p>
+        <p>Clean modern UI</p>
     </div>
 </div>
 
-<!-- FRAMEWORK SUPPORT -->
-<div class="section fade">
-    <div>
-        <h1 class="gradient-text">Framework Support</h1>
-        <p>Works seamlessly with:</p>
-
-        <h2>✔ Standalone</h2>
-        <h2>✔ QBcore</h2>
-        <h2>✔ ESX</h2>
-
-        <p>No matter your server setup, Georgia CAD is ready.</p>
-    </div>
-</div>
-
-<!-- PERFORMANCE -->
 <div class="section fade">
     <div>
         <h1 class="gradient-text">Performance</h1>
 
         <div class="stat" data-target="6.7">0</div>
-        <p>Faster response times</p>
+        <p>Faster response</p>
 
         <div class="stat" data-target="4">0</div>
-        <p>Optimized data handling</p>
+        <p>Optimized systems</p>
     </div>
 </div>
 
-<!-- FINAL CTA -->
-<div class="section fade">
-    <div>
-        <h1 class="gradient-text">Upgrade Your Server</h1>
-        <h2>Georgia CAD is built for serious roleplay communities.</h2>
-        <p>Reliable. Fast. Powerful.</p>
-    </div>
-</div>
+<script>
+const fades = document.querySelectorAll(".fade");
+const stats = document.querySelectorAll(".stat");
+
+function animateCount(el) {
+    let target = parseFloat(el.getAttribute("data-target"));
+    let count = 0;
+    let step = target / 50;
+
+    let interval = setInterval(() => {
+        count += step;
+        if (count >= target) {
+            el.innerText = target + "x";
+            clearInterval(interval);
+        } else {
+            el.innerText = count.toFixed(1);
+        }
+    }, 30);
+}
+
+window.addEventListener("scroll", () => {
+    const trigger = window.innerHeight * 0.85;
+
+    fades.forEach(el => {
+        if (el.getBoundingClientRect().top < trigger) {
+            el.classList.add("active");
+        }
+    });
+
+    stats.forEach(stat => {
+        if (stat.getBoundingClientRect().top < trigger && !stat.classList.contains("done")) {
+            stat.classList.add("done");
+            animateCount(stat);
+        }
+    });
+});
+</script>
 
 </body>
+</html>
