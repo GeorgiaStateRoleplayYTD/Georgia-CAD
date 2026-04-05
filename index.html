@@ -104,7 +104,7 @@ border-radius:20px;
 object-fit:cover;
 }
 
-/* CARDS */
+/* GRID / CARDS */
 
 .grid{
 display:grid;
@@ -121,8 +121,10 @@ transition:.3s;
 }
 
 .card:hover{
-transform:translateY(-10px);
-box-shadow:0 0 25px rgba(0,120,255,0.3);
+transform:translateY(-10px) scale(1.03);
+box-shadow:
+0 0 20px rgba(0,120,255,0.4),
+0 0 40px rgba(0,120,255,0.2);
 }
 
 .card ul{
@@ -136,18 +138,14 @@ font-size:.95em;
 color:#ccc;
 }
 
-/* KEYBINDS */
-
-.keybox{
-background:rgba(0,0,0,0.6);
-padding:30px;
-border-radius:15px;
-max-width:600px;
-margin:auto;
+.card h2{
+font-size:2em;
+margin-bottom:10px;
+color:#00c6ff;
 }
 
-.keybox li{
-margin:10px 0;
+.card p{
+color:#bbb;
 }
 
 /* BUTTON */
@@ -248,16 +246,43 @@ cursor:pointer;
 
 <h1 class="gradient-text">Keybind System</h1>
 
-<div class="keybox">
-<ul>
-<li><b>F1</b> – Open CAD</li>
-<li><b>F2</b> – Panic Button</li>
-<li><b>F3</b> – Dispatch Menu</li>
-<li><b>F6</b> – MDT</li>
-<li><b>CTRL + D</b> – Duty Toggle</li>
-<li><b>ALT + C</b> – Create Call</li>
-</ul>
+<div class="grid">
+
+<div class="card">
+<h2>F1</h2>
+<p>Open CAD System</p>
 </div>
+
+<div class="card">
+<h2>F2</h2>
+<p>Panic Button</p>
+</div>
+
+<div class="card">
+<h2>F3</h2>
+<p>Dispatch Menu</p>
+</div>
+
+<div class="card">
+<h2>F6</h2>
+<p>Open MDT</p>
+</div>
+
+<div class="card">
+<h2>CTRL + D</h2>
+<p>Toggle Duty Status</p>
+</div>
+
+<div class="card">
+<h2>ALT + C</h2>
+<p>Create Call</p>
+</div>
+
+</div>
+
+<p style="margin-top:25px;color:#aaa">
+Fully customizable per server & framework
+</p>
 
 </div>
 </div>
@@ -313,8 +338,19 @@ cursor:pointer;
 
 <h1 class="gradient-text">Performance</h1>
 
-<h2>6.7x Faster Rendering</h2>
-<h2>4x AI Processing</h2>
+<div class="grid">
+
+<div class="card">
+<h2 class="stat" data-target="6.7">0</h2>
+<p>Faster Rendering</p>
+</div>
+
+<div class="card">
+<h2 class="stat" data-target="4">0</h2>
+<p>AI Processing Speed</p>
+</div>
+
+</div>
 
 </div>
 </div>
@@ -333,6 +369,8 @@ cursor:pointer;
 
 <script>
 
+/* SCROLL REVEAL */
+
 const reveals=document.querySelectorAll(".reveal")
 
 function reveal(){
@@ -343,8 +381,9 @@ el.classList.add("visible")
 }
 })
 }
-
 window.addEventListener("scroll",reveal)
+
+/* TABLET 3D */
 
 const tablet=document.getElementById("tablet")
 
@@ -352,6 +391,37 @@ document.addEventListener("mousemove",e=>{
 let x=(window.innerWidth/2-e.pageX)/40
 let y=(window.innerHeight/2-e.pageY)/40
 tablet.style.transform=`rotateY(${x}deg) rotateX(${-y}deg)`
+})
+
+/* COUNTERS */
+
+const stats=document.querySelectorAll(".stat")
+
+function animateCount(el){
+let target=parseFloat(el.dataset.target)
+let count=0
+let step=target/50
+
+let interval=setInterval(()=>{
+count+=step
+
+if(count>=target){
+el.innerText=target+"x"
+clearInterval(interval)
+}else{
+el.innerText=count.toFixed(1)
+}
+
+},30)
+}
+
+window.addEventListener("scroll",()=>{
+stats.forEach(stat=>{
+if(stat.getBoundingClientRect().top<window.innerHeight*.8 && !stat.classList.contains("done")){
+stat.classList.add("done")
+animateCount(stat)
+}
+})
 })
 
 </script>
