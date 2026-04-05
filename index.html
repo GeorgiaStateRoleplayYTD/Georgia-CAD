@@ -34,6 +34,8 @@ background:rgba(0,0,0,0.85);
 z-index:-1;
 }
 
+/* SECTION */
+
 .section{
 min-height:100vh;
 display:flex;
@@ -43,12 +45,16 @@ text-align:center;
 padding:80px 10%;
 }
 
+/* TITLE */
+
 .gradient-text{
 font-size:5em;
 background:linear-gradient(90deg,#00c6ff,#0072ff,#ff004c);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
+
+/* SCROLL */
 
 .reveal{
 opacity:0;
@@ -61,53 +67,35 @@ opacity:1;
 transform:translateY(0);
 }
 
-/* GLASS COMING SOON */
+/* 🔥 GLASS PILL (COMING SOON) */
 
-.coming-glass{
-max-width:700px;
-margin:0 auto 40px auto;
-padding:30px;
-border-radius:20px;
-background:rgba(255,255,255,0.05);
-border:1px solid rgba(255,255,255,0.1);
-backdrop-filter:blur(12px);
+.coming-pill{
+display:inline-block;
+padding:10px 28px;
+border-radius:50px;
+margin-bottom:25px;
+
+background:rgba(255,255,255,0.06);
+border:1px solid rgba(255,255,255,0.15);
+
+backdrop-filter:blur(10px);
+
+font-size:0.95em;
+letter-spacing:1.5px;
+text-transform:uppercase;
+
 box-shadow:
-0 0 30px rgba(0,120,255,0.2),
-0 0 50px rgba(255,0,80,0.15);
+0 0 15px rgba(255,255,255,0.08),
+inset 0 0 10px rgba(255,255,255,0.05);
+
+transition:0.3s;
 }
 
-.coming-glass h2{
-margin-bottom:15px;
-font-size:2em;
-background:linear-gradient(90deg,#ff004c,#00c6ff);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-.coming-glass p{
-color:#ccc;
-line-height:1.6;
-}
-
-.coming-tags{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-justify-content:center;
-margin-top:20px;
-}
-
-.coming-tags span{
-padding:8px 18px;
-border-radius:25px;
-background:rgba(0,120,255,0.2);
-border:1px solid rgba(0,120,255,0.3);
-transition:.3s;
-}
-
-.coming-tags span:hover{
-background:rgba(0,120,255,0.4);
-transform:scale(1.05);
+.coming-pill:hover{
+transform:scale(1.08);
+box-shadow:
+0 0 20px rgba(0,120,255,0.4),
+0 0 30px rgba(255,0,80,0.3);
 }
 
 /* BUBBLES */
@@ -219,22 +207,7 @@ cursor:pointer;
 <div class="section reveal">
 <div>
 
-<div class="coming-glass">
-<h2>🚧 Coming Soon</h2>
-<p>
-Georgia CAD is currently in active development.<br><br>
-Built for <b>FiveM</b> and <b>Roblox</b> communities, delivering a next-generation dispatch, MDT, and records system.
-<br><br>
-Featuring advanced automation, custom keybinds, full API access, and seamless in-game integration.
-</p>
-
-<div class="coming-tags">
-<span>FiveM Ready</span>
-<span>Roblox Integration</span>
-<span>Custom Keybinds</span>
-<span>Live CAD System</span>
-</div>
-</div>
+<div class="coming-pill">🚧 Coming Soon</div>
 
 <h1 class="gradient-text">Georgia CAD</h1>
 <h2>Next Generation Dispatch System</h2>
@@ -310,57 +283,12 @@ Featuring advanced automation, custom keybinds, full API access, and seamless in
 <h1 class="gradient-text">Keybind System</h1>
 
 <div class="grid">
-
 <div class="card"><h2>F1</h2><p>Open CAD</p></div>
 <div class="card"><h2>F2</h2><p>Panic Button</p></div>
 <div class="card"><h2>F3</h2><p>Dispatch</p></div>
 <div class="card"><h2>F6</h2><p>MDT</p></div>
 <div class="card"><h2>CTRL+D</h2><p>Duty Toggle</p></div>
 <div class="card"><h2>ALT+C</h2><p>Create Call</p></div>
-
-</div>
-
-</div>
-</div>
-
-<!-- INTEGRATIONS -->
-
-<div class="section reveal">
-<div>
-<h1 class="gradient-text">Integrations</h1>
-
-<div class="grid">
-
-<div class="card">
-<h2>FiveM</h2>
-<ul>
-<li>QBcore & ESX</li>
-<li>Player sync</li>
-<li>Vehicle lookup</li>
-<li>In-game UI</li>
-</ul>
-</div>
-
-<div class="card">
-<h2>Roblox</h2>
-<ul>
-<li>Group sync</li>
-<li>Permissions</li>
-<li>Live CAD panel</li>
-<li>API</li>
-</ul>
-</div>
-
-<div class="card">
-<h2>API</h2>
-<ul>
-<li>REST API</li>
-<li>Webhooks</li>
-<li>Custom integrations</li>
-<li>Dev tools</li>
-</ul>
-</div>
-
 </div>
 
 </div>
@@ -390,18 +318,8 @@ Featuring advanced automation, custom keybinds, full API access, and seamless in
 </div>
 </div>
 
-<!-- CTA -->
-
-<div class="section reveal">
-<div>
-<h1 class="gradient-text">Get Started</h1>
-<button class="btn">Join Discord</button>
-</div>
-</div>
-
 <script>
 
-/* SCROLL */
 const reveals=document.querySelectorAll(".reveal")
 window.addEventListener("scroll",()=>{
 reveals.forEach(el=>{
@@ -411,7 +329,6 @@ el.classList.add("visible")
 })
 })
 
-/* TABLET */
 const tablet=document.getElementById("tablet")
 document.addEventListener("mousemove",e=>{
 let x=(window.innerWidth/2-e.pageX)/40
@@ -419,7 +336,6 @@ let y=(window.innerHeight/2-e.pageY)/40
 tablet.style.transform=`rotateY(${x}deg) rotateX(${-y}deg)`
 })
 
-/* COUNTER */
 const stats=document.querySelectorAll(".stat")
 
 function animateCount(el){
