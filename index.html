@@ -1,166 +1,493 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Georgia CAD</title>
 
 <style>
-  /* Reset */
-  body, html {
-    margin: 0; 
-    padding: 0;
-    height: 100%;
-    overflow-x: hidden;
-    font-family: Arial, sans-serif;
-    color: white;
-    background: black;
-    position: relative;
-    z-index: 0;
 
-    /* Enable smooth scroll zoom */
-    scroll-behavior: smooth;
-    scroll-snap-type: y mandatory;
-  }
+body{
+margin:0;
+background:black;
+color:white;
+font-family:Arial,Helvetica,sans-serif;
+overflow-x:hidden;
+}
 
-  /* Video background wrapper */
-  .video-bg-wrapper {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: -3;
-    overflow: hidden;
-    opacity: 0.15;
-    filter: brightness(0.7) contrast(1.2);
-  }
+/* background video */
 
-  /* YouTube iframe styling for full cover */
-  .video-bg-wrapper iframe {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 177.78vh; /* 100vh * 16/9 aspect ratio */
-    height: 100vh;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-  }
+.video-bg-wrapper{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-3;
+opacity:.15;
+pointer-events:none;
+}
 
-  /* 🚔 Police glow background */
-  body::before {
-    content: "";
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: 
-      radial-gradient(circle at left, rgba(255,0,0,0.15), transparent 50%),
-      radial-gradient(circle at right, rgba(0,100,255,0.15), transparent 50%);
-    z-index: -2;
-  }
+.video-bg-wrapper iframe{
+width:177vh;
+height:100vh;
+position:absolute;
+left:50%;
+transform:translateX(-50%);
+}
 
-  /* Content container */
-  .content {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    padding: 4rem 2rem;
-    max-width: 900px;
-    margin: 0 auto;
+/* police lights */
 
-    /* Apple-like scroll zoom effect */
-    scroll-snap-align: start;
-    transition: transform 0.4s ease;
-  }
+body::before{
+content:"";
+position:fixed;
+width:200%;
+height:100%;
+background:linear-gradient(90deg,rgba(255,0,0,.25),transparent,rgba(0,120,255,.25));
+animation:lights 6s linear infinite;
+z-index:-2;
+}
 
-  .content:focus-within, .content:hover {
-    transform: scale(1.05);
-  }
+@keyframes lights{
+0%{transform:translateX(-50%)}
+100%{transform:translateX(0)}
+}
 
-  /* Title styling */
-  h1.gradient-text {
-    font-size: 4rem;
-    background: linear-gradient(90deg, #00c6ff, #6a4bff, #ff004c);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 0.25rem;
-  }
+/* sections */
 
-  h2.subtitle {
-    font-size: 1.75rem;
-    font-weight: 600;
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-    color: #ccc;
-  }
+.section{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:80px 10%;
+}
 
-  /* Info text */
-  .info-text {
-    font-size: 1.5rem;
-    line-height: 1.6;
-    margin-bottom: 2rem;
-  }
+.gradient-text{
+font-size:5em;
+background:linear-gradient(90deg,#00c6ff,#0072ff,#ff004c);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
 
-  /* Image styling */
-  .cad-image {
-    max-width: 100%;
-    border-radius: 15px;
-    box-shadow:
-      0 0 15px rgba(255, 0, 0, 0.7),
-      0 0 30px rgba(0, 100, 255, 0.7);
-    margin-bottom: 3rem;
-  }
+h2{font-size:2.5em}
 
-  /* Footer note */
-  .footer-note {
-    font-size: 1rem;
-    color: #777;
-  }
+p{font-size:1.3em;line-height:1.6}
 
-  /* Responsive text scaling */
-  @media (max-width: 600px) {
-    h1.gradient-text {
-      font-size: 2.5rem;
-    }
-    h2.subtitle {
-      font-size: 1.3rem;
-    }
-    .info-text {
-      font-size: 1.2rem;
-    }
-  }
+/* reveal animation */
+
+.reveal{
+opacity:0;
+transform:translateY(100px);
+transition:all 1.2s ease;
+}
+
+.reveal.visible{
+opacity:1;
+transform:translateY(0);
+}
+
+/* tablet */
+
+.tablet-wrapper{
+perspective:1200px;
+}
+
+.tablet{
+width:900px;
+height:550px;
+background:#111;
+border-radius:30px;
+padding:20px;
+box-shadow:0 0 80px rgba(255,0,0,.4),0 0 120px rgba(0,100,255,.5);
+transition:transform .2s ease;
+}
+
+.screen{
+width:100%;
+height:100%;
+border-radius:20px;
+overflow:hidden;
+}
+
+.screen img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+/* info box */
+
+.info-box{
+background:rgba(255,255,255,.05);
+padding:30px;
+border-radius:15px;
+max-width:900px;
+}
+
+/* gallery */
+
+.gallery{
+display:flex;
+gap:40px;
+overflow-x:auto;
+padding:40px;
+scroll-snap-type:x mandatory;
+}
+
+.gallery img{
+height:420px;
+border-radius:15px;
+scroll-snap-align:center;
+transition:transform .4s;
+}
+
+.gallery img:hover{
+transform:scale(1.06);
+}
+
+/* departments */
+
+.departments{
+display:flex;
+gap:40px;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.dept{
+font-size:60px;
+transition:.3s;
+}
+
+.dept:hover{
+transform:translateY(-10px) scale(1.2);
+}
+
+/* dispatch panel */
+
+.dispatch{
+background:rgba(255,255,255,.05);
+padding:30px;
+border-radius:12px;
+width:420px;
+}
+
+.call{
+color:#ff4444;
+font-size:22px;
+margin-bottom:20px;
+animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+0%{opacity:1}
+50%{opacity:.4}
+100%{opacity:1}
+}
+
+/* stats */
+
+.stat{
+font-size:3em;
+margin:20px 0;
+}
+
+/* table */
+
+table{
+border-collapse:collapse;
+width:80%;
+margin:auto;
+}
+
+td,th{
+border:1px solid rgba(255,255,255,.2);
+padding:15px;
+}
+
+th{
+background:rgba(255,255,255,.05);
+}
+
 </style>
 </head>
 
 <body>
 
-  <!-- Video Background -->
-  <div class="video-bg-wrapper" aria-hidden="true">
-    <iframe 
-      src="https://www.youtube.com/embed/Jox6R5-rIH0?autoplay=1&mute=1&controls=0&loop=1&playlist=Jox6R5-rIH0&modestbranding=1&showinfo=0&iv_load_policy=3&disablekb=1" 
-      frameborder="0" allow="autoplay; fullscreen" allowfullscreen
-      ></iframe>
-  </div>
+<div class="video-bg-wrapper">
+<iframe src="https://www.youtube.com/embed/Jox6R5-rIH0?autoplay=1&mute=1&controls=0&loop=1&playlist=Jox6R5-rIH0"></iframe>
+</div>
 
-  <!-- Police Glow Background (via body::before) -->
+<!-- HERO -->
 
-  <!-- Main Content -->
-  <div class="content" tabindex="0">
-    <h1 class="gradient-text">Georgia CAD</h1>
-    <h2 class="subtitle">Next-Gen Dispatch System</h2>
-    <p class="info-text">
-      Georgia CAD is a cutting-edge, next-generation dispatch system designed specifically for roleplay servers.<br>
-      Built for performance, realism, and ultimate control, it supports multiple popular frameworks including Standalone, QBcore, and ESX.
-    </p>
+<div class="section reveal">
+<div>
+<h1 class="gradient-text">Georgia CAD</h1>
+<h2>Next Generation Dispatch System</h2>
+<p>Standalone • QBcore • ESX</p>
+</div>
+</div>
 
-    <img 
-      src="https://i.imgur.com/SKwBuLY.png" 
-      alt="Georgia CAD User Interface" 
-      class="cad-image"
-    />
+<!-- TABLET -->
 
-    <p class="footer-note">Built for the Georgia State Roleplay community. Experience power, performance, and control all in one place.</p>
-  </div>
+<div class="section reveal">
+<div class="tablet-wrapper">
+<div class="tablet" id="tablet">
+
+<div class="screen">
+<img src="https://i.imgur.com/SKwBuLY.png">
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- ABOUT -->
+
+<div class="section reveal">
+<div class="info-box">
+
+<h2>About Georgia CAD</h2>
+
+<p>
+Georgia CAD is a next generation dispatch and records management system
+designed for professional FiveM roleplay communities.
+It provides high performance tools for dispatchers,
+law enforcement, EMS, and civilians while maintaining
+smooth server performance.
+</p>
+
+<p>
+Built for realism, speed, and scalability,
+Georgia CAD allows communities to manage
+incidents, units, reports, vehicles, and identities
+all inside a modern Apple-style interface.
+</p>
+
+<img src="https://i.imgur.com/43NqCEk.png" style="width:100%;border-radius:12px;margin-top:30px;">
+
+</div>
+</div>
+
+<!-- GALLERY -->
+
+<div class="section reveal">
+
+<div>
+
+<h1 class="gradient-text">CAD Interface</h1>
+
+<div class="gallery">
+
+<img src="https://i.imgur.com/SKwBuLY.png">
+<img src="https://i.imgur.com/43NqCEk.png">
+<img src="https://i.imgur.com/SKwBuLY.png">
+<img src="https://i.imgur.com/43NqCEk.png">
+
+</div>
+
+</div>
+
+</div>
+
+<!-- DEPARTMENTS -->
+
+<div class="section reveal">
+
+<div>
+
+<h1 class="gradient-text">Departments</h1>
+
+<div class="departments">
+
+<div class="dept">🚓<p>Police</p></div>
+<div class="dept">🚑<p>EMS</p></div>
+<div class="dept">🚒<p>Fire</p></div>
+<div class="dept">🧍<p>Civilian</p></div>
+<div class="dept">🚚<p>Tow</p></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- DISPATCH -->
+
+<div class="section reveal">
+
+<div>
+
+<h1 class="gradient-text">Live Dispatch</h1>
+
+<div class="dispatch">
+
+<div class="call">911 CALL: Robbery in Progress</div>
+
+<p>Unit 1 responding</p>
+<p>Unit 3 en route</p>
+<p>EMS staging</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- PERFORMANCE -->
+
+<div class="section reveal">
+
+<div>
+
+<h1 class="gradient-text">Performance</h1>
+
+<div class="stat" data-target="6.7">0</div>
+<p>Faster Rendering</p>
+
+<div class="stat" data-target="4">0</div>
+<p>AI Processing</p>
+
+</div>
+
+</div>
+
+<!-- COMPARISON -->
+
+<div class="section reveal">
+
+<div>
+
+<h1 class="gradient-text">CAD Comparison</h1>
+
+<table>
+
+<tr>
+<th>Feature</th>
+<th>Georgia CAD</th>
+<th>Sonoran CAD</th>
+</tr>
+
+<tr>
+<td>Standalone Support</td>
+<td>✔</td>
+<td>❌</td>
+</tr>
+
+<tr>
+<td>QBcore Integration</td>
+<td>✔</td>
+<td>Limited</td>
+</tr>
+
+<tr>
+<td>ESX Support</td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+
+<tr>
+<td>Custom Modules</td>
+<td>✔</td>
+<td>❌</td>
+</tr>
+
+<tr>
+<td>Performance</td>
+<td>6.7x Faster</td>
+<td>Standard</td>
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+
+/* reveal scroll */
+
+const reveals=document.querySelectorAll(".reveal");
+
+function reveal(){
+
+let trigger=window.innerHeight*.85;
+
+reveals.forEach(el=>{
+
+if(el.getBoundingClientRect().top<trigger){
+el.classList.add("visible")
+}
+
+})
+
+}
+
+window.addEventListener("scroll",reveal);
+
+
+/* tablet 3D */
+
+const tablet=document.getElementById("tablet");
+
+document.addEventListener("mousemove",e=>{
+
+let x=(window.innerWidth/2-e.pageX)/40
+let y=(window.innerHeight/2-e.pageY)/40
+
+tablet.style.transform=`rotateY(${x}deg) rotateX(${-y}deg)`
+
+})
+
+
+/* stats */
+
+const stats=document.querySelectorAll(".stat")
+
+function animateCount(el){
+
+let target=parseFloat(el.dataset.target)
+let count=0
+let step=target/50
+
+let interval=setInterval(()=>{
+
+count+=step
+
+if(count>=target){
+el.innerText=target+"x"
+clearInterval(interval)
+}
+
+else{
+el.innerText=count.toFixed(1)
+}
+
+},30)
+
+}
+
+window.addEventListener("scroll",()=>{
+
+stats.forEach(stat=>{
+
+if(stat.getBoundingClientRect().top<window.innerHeight*.8&&!stat.classList.contains("done")){
+
+stat.classList.add("done")
+animateCount(stat)
+
+}
+
+})
+
+})
+
+</script>
 
 </body>
 </html>
+```
