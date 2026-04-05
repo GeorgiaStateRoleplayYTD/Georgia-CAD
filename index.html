@@ -8,10 +8,7 @@
 
 <title>Georgia CAD</title>
 
-<!-- FAVICON -->
 <link rel="icon" type="image/png" href="https://i.imgur.com/8s9BnlC.png">
-<link rel="shortcut icon" href="https://i.imgur.com/8s9BnlC.png">
-<link rel="apple-touch-icon" href="https://i.imgur.com/8s9BnlC.png">
 
 <style>
 
@@ -21,8 +18,6 @@ background:black;
 color:white;
 font-family:Arial,Helvetica,sans-serif;
 overflow-x:hidden;
-
-/* BACKGROUND IMAGE */
 background-image:url("https://i.imgur.com/8s9BnlC.png");
 background-repeat:no-repeat;
 background-position:center;
@@ -33,16 +28,11 @@ background-attachment:fixed;
 body::before{
 content:"";
 position:fixed;
-top:0;
-left:0;
 width:100%;
 height:100%;
 background:rgba(0,0,0,0.85);
-pointer-events:none;
 z-index:-1;
 }
-
-/* HERO */
 
 .section{
 min-height:100vh;
@@ -60,12 +50,10 @@ background:linear-gradient(90deg,#00c6ff,#0072ff,#ff004c);
 -webkit-text-fill-color:transparent;
 }
 
-/* SCROLL REVEAL */
-
 .reveal{
 opacity:0;
 transform:translateY(80px);
-transition:all 1.2s ease;
+transition:1.2s;
 }
 
 .reveal.visible{
@@ -73,36 +61,31 @@ opacity:1;
 transform:translateY(0);
 }
 
-/* FRAMEWORKS */
+/* BUBBLES */
 
-.frameworks{
+.bubbles{
 display:flex;
 gap:15px;
 justify-content:center;
-margin-top:20px;
 flex-wrap:wrap;
+margin-top:20px;
 }
 
-.frameworks span{
+.bubbles span{
+padding:12px 25px;
+border-radius:30px;
 background:rgba(255,255,255,0.08);
 border:1px solid rgba(255,255,255,0.15);
-padding:10px 22px;
-border-radius:30px;
-font-size:1.1em;
 backdrop-filter:blur(6px);
 transition:.3s;
 }
 
-.frameworks span:hover{
-transform:scale(1.08);
+.bubbles span:hover{
+transform:scale(1.1);
 background:rgba(0,120,255,0.25);
 }
 
 /* TABLET */
-
-.tablet-wrapper{
-perspective:1200px;
-}
 
 .tablet{
 width:900px;
@@ -111,161 +94,71 @@ background:#111;
 border-radius:30px;
 padding:20px;
 box-shadow:0 0 80px rgba(255,0,0,.4),0 0 120px rgba(0,100,255,.5);
-transition:transform .2s ease;
-}
-
-.screen{
-width:100%;
-height:100%;
-border-radius:20px;
-overflow:hidden;
+transition:.2s;
 }
 
 .screen img{
 width:100%;
 height:100%;
+border-radius:20px;
 object-fit:cover;
 }
 
-/* DEPARTMENTS */
+/* CARDS */
 
-.departments{
-display:flex;
-gap:50px;
-justify-content:center;
-flex-wrap:wrap;
-margin-top:40px;
-}
-
-.dept img{
-width:150px;
-transition:.3s;
-}
-
-.dept img:hover{
-transform:scale(1.15) translateY(-10px);
-}
-
-/* DISPATCH (UPGRADED) */
-
-.dispatch{
-background:linear-gradient(145deg,rgba(0,0,0,0.7),rgba(20,20,20,0.9));
-padding:30px;
-border-radius:18px;
-width:420px;
-border:1px solid rgba(255,255,255,0.08);
-box-shadow:
-0 0 25px rgba(255,0,0,0.2),
-0 0 40px rgba(0,120,255,0.2);
-backdrop-filter:blur(10px);
-position:relative;
-overflow:hidden;
-}
-
-.dispatch::before{
-content:"";
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:3px;
-background:linear-gradient(90deg,#ff004c,#00c6ff,#0072ff);
-animation:scan 3s linear infinite;
-}
-
-@keyframes scan{
-0%{transform:translateX(-100%)}
-100%{transform:translateX(100%)}
-}
-
-.call{
-color:#ff4d4d;
-font-size:22px;
-margin-bottom:20px;
-font-weight:bold;
-letter-spacing:1px;
-text-shadow:0 0 10px rgba(255,0,0,0.7);
-animation:pulse 1.5s infinite;
-}
-
-.dispatch p{
-margin:6px 0;
-font-size:15px;
-color:#ccc;
-border-left:3px solid rgba(0,120,255,0.5);
-padding-left:10px;
-}
-
-@keyframes pulse{
-0%{opacity:1}
-50%{opacity:.4}
-100%{opacity:1}
-}
-
-/* PERFORMANCE */
-
-.stat{
-font-size:3em;
-margin:20px 0;
-}
-
-/* PRICING */
-
-.pricing-grid{
+.grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
 gap:30px;
 margin-top:40px;
 }
 
-.plan{
+.card{
 background:rgba(255,255,255,0.05);
 padding:30px;
 border-radius:18px;
-text-align:left;
+transition:.3s;
 }
 
-.plan h2{
-text-align:center;
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 0 25px rgba(0,120,255,0.3);
 }
 
-.plan ul{
+.card ul{
 list-style:none;
 padding:0;
-margin:20px 0;
 }
 
-.plan li{
+.card li{
 margin:8px 0;
 font-size:.95em;
+color:#ccc;
 }
 
-.highlight{
-border:2px solid #0a84ff;
-box-shadow:0 0 30px rgba(0,120,255,.4);
-}
+/* KEYBINDS */
 
-/* BUTTONS */
-
-.buy-btn{
-background:#0a84ff;
-border:none;
-color:white;
-padding:12px 30px;
-font-size:1.2em;
-border-radius:25px;
-cursor:pointer;
-display:block;
+.keybox{
+background:rgba(0,0,0,0.6);
+padding:30px;
+border-radius:15px;
+max-width:600px;
 margin:auto;
 }
 
-.discord-btn{
-background:#5865F2;
+.keybox li{
+margin:10px 0;
+}
+
+/* BUTTON */
+
+.btn{
+background:#0a84ff;
+padding:14px 35px;
 border:none;
-color:white;
-padding:16px 40px;
-font-size:1.2em;
 border-radius:30px;
+color:white;
+font-size:1.1em;
 cursor:pointer;
 }
 
@@ -279,13 +172,16 @@ cursor:pointer;
 
 <div class="section reveal">
 <div>
+
 <h1 class="gradient-text">Georgia CAD</h1>
 <h2>Next Generation Dispatch System</h2>
 
-<div class="frameworks">
+<div class="bubbles">
 <span>Standalone</span>
 <span>QBcore</span>
 <span>ESX</span>
+<span>FiveM</span>
+<span>Roblox</span>
 </div>
 
 </div>
@@ -294,64 +190,117 @@ cursor:pointer;
 <!-- TABLET -->
 
 <div class="section reveal">
-<div class="tablet-wrapper">
 <div class="tablet" id="tablet">
 <div class="screen">
 <img src="https://i.imgur.com/SKwBuLY.png">
 </div>
 </div>
 </div>
-</div>
 
-<!-- DEPARTMENTS -->
-
-<div class="section reveal">
-<div>
-<h1 class="gradient-text">Departments</h1>
-
-<div class="departments">
-
-<div class="dept">
-<img src="https://i.imgur.com/hp1458M.png">
-<p>Police</p>
-</div>
-
-<div class="dept">
-<img src="https://i.imgur.com/t13pz77.png">
-<p>Fire</p>
-</div>
-
-<div class="dept">
-<img src="https://i.imgur.com/XLQcqoH.png">
-<p>Tow</p>
-</div>
-
-<div class="dept">
-<img src="https://i.imgur.com/4LhSRKU.png">
-<p>EMS</p>
-</div>
-
-<div class="dept">
-<img src="https://i.imgur.com/UclPhFm.png">
-<p>Civilian</p>
-</div>
-
-</div>
-</div>
-</div>
-
-<!-- DISPATCH -->
+<!-- FEATURES -->
 
 <div class="section reveal">
 <div>
-<h1 class="gradient-text">Live Dispatch</h1>
 
-<div class="dispatch">
-<div class="call">🚨 911 CALL: Robbery in Progress</div>
-<p>📍 Location: Downtown Vine St</p>
-<p>👮 Unit 1 Responding</p>
-<p>🚓 Unit 3 En Route</p>
-<p>🚑 EMS Staging Nearby</p>
+<h1 class="gradient-text">Features</h1>
+
+<div class="grid">
+
+<div class="card">
+<h2>Advanced CAD</h2>
+<ul>
+<li>Real-time unit tracking</li>
+<li>Report builder system</li>
+<li>Live BOLO alerts</li>
+<li>Database syncing</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Automation</h2>
+<ul>
+<li>Auto dispatch updates</li>
+<li>Smart call routing</li>
+<li>AI assisted logs</li>
+<li>Fast response tools</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Customization</h2>
+<ul>
+<li>UI themes</li>
+<li>Permissions system</li>
+<li>Custom alerts</li>
+<li>Editable fields</li>
+</ul>
+</div>
+
+</div>
+
+</div>
+</div>
+
+<!-- KEYBINDS -->
+
+<div class="section reveal">
+<div>
+
+<h1 class="gradient-text">Keybind System</h1>
+
+<div class="keybox">
+<ul>
+<li><b>F1</b> – Open CAD</li>
+<li><b>F2</b> – Panic Button</li>
+<li><b>F3</b> – Dispatch Menu</li>
+<li><b>F6</b> – MDT</li>
+<li><b>CTRL + D</b> – Duty Toggle</li>
+<li><b>ALT + C</b> – Create Call</li>
+</ul>
+</div>
+
+</div>
+</div>
+
+<!-- INTEGRATIONS -->
+
+<div class="section reveal">
+<div>
+
+<h1 class="gradient-text">Integrations</h1>
+
+<div class="grid">
+
+<div class="card">
+<h2>FiveM</h2>
+<ul>
+<li>QBcore & ESX ready</li>
+<li>Live player sync</li>
+<li>Vehicle lookup</li>
+<li>In-game UI</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Roblox</h2>
+<ul>
+<li>Group rank sync</li>
+<li>Role permissions</li>
+<li>Live CAD panel</li>
+<li>API integration</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>API</h2>
+<ul>
+<li>REST API</li>
+<li>Discord webhooks</li>
+<li>Custom integrations</li>
+<li>Developer friendly</li>
+</ul>
+</div>
+
 </div>
 
 </div>
@@ -361,73 +310,33 @@ cursor:pointer;
 
 <div class="section reveal">
 <div>
+
 <h1 class="gradient-text">Performance</h1>
 
-<div class="stat" data-target="6.7">0</div>
-<p>Faster Rendering</p>
-
-<div class="stat" data-target="4">0</div>
-<p>AI Processing</p>
+<h2>6.7x Faster Rendering</h2>
+<h2>4x AI Processing</h2>
 
 </div>
 </div>
 
-<!-- PRICING -->
+<!-- CTA -->
 
 <div class="section reveal">
 <div>
 
-<h1 class="gradient-text">Subscriptions</h1>
+<h1 class="gradient-text">Get Started</h1>
 
-<div class="pricing-grid">
-
-<div class="plan">
-<h2>Free</h2>
-<ul>
-<li>User Accounts: 35</li>
-<li>Servers: 1</li>
-<li>Custom Record Templates: 10</li>
-<li>Integrated Live Map ✔</li>
-<li>Custom Live Map Image ✖</li>
-<li>Bodycam Uploads: 10 min</li>
-</ul>
-<button class="buy-btn">$0</button>
-</div>
-
-<div class="plan highlight">
-<h2>Standard</h2>
-<ul>
-<li>User Accounts: 100</li>
-<li>Servers: 1</li>
-<li>Custom Audio Notifications ✔</li>
-<li>Custom Login Screen ✔</li>
-<li>Integration API: Standard</li>
-<li>Discord Presence: Partial</li>
-<li>Bodycam Uploads: 100 min</li>
-</ul>
-<button class="buy-btn">$15</button>
-</div>
-
-</div>
-
-<br><br>
-
-<a href="https://discord.gg/YOURDISCORD" target="_blank">
-<button class="discord-btn">Join our Discord</button>
-</a>
+<button class="btn">Join Discord</button>
 
 </div>
 </div>
 
 <script>
 
-/* SCROLL REVEAL */
-
 const reveals=document.querySelectorAll(".reveal")
 
 function reveal(){
 let trigger=window.innerHeight*.85
-
 reveals.forEach(el=>{
 if(el.getBoundingClientRect().top<trigger){
 el.classList.add("visible")
@@ -437,45 +346,12 @@ el.classList.add("visible")
 
 window.addEventListener("scroll",reveal)
 
-/* TABLET 3D */
-
 const tablet=document.getElementById("tablet")
 
 document.addEventListener("mousemove",e=>{
 let x=(window.innerWidth/2-e.pageX)/40
 let y=(window.innerHeight/2-e.pageY)/40
 tablet.style.transform=`rotateY(${x}deg) rotateX(${-y}deg)`
-})
-
-/* COUNTERS */
-
-const stats=document.querySelectorAll(".stat")
-
-function animateCount(el){
-let target=parseFloat(el.dataset.target)
-let count=0
-let step=target/50
-
-let interval=setInterval(()=>{
-count+=step
-
-if(count>=target){
-el.innerText=target+"x"
-clearInterval(interval)
-}else{
-el.innerText=count.toFixed(1)
-}
-
-},30)
-}
-
-window.addEventListener("scroll",()=>{
-stats.forEach(stat=>{
-if(stat.getBoundingClientRect().top<window.innerHeight*.8&&!stat.classList.contains("done")){
-stat.classList.add("done")
-animateCount(stat)
-}
-})
 })
 
 </script>
