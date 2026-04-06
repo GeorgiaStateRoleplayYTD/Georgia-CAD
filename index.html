@@ -11,7 +11,7 @@ body { margin:0; font-family:"Segoe UI",sans-serif; background:#f5f7fa; }
 .secure-banner { background:#1b5e20; color:white; text-align:center; padding:6px; font-size:13px; }
 header { background:#0b3d91; color:white; padding:15px 20px; display:flex; justify-content:space-between; align-items:center; }
 .nav { display:flex; gap:20px; }
-.nav a { color:white; text-decoration:none; font-size:14px; cursor:pointer; }
+.nav a { color:white; text-decoration:none; cursor:pointer; }
 .auth-top { display:flex; gap:8px; }
 .auth-top input { padding:6px; border-radius:4px; border:none; }
 .button { background:#0b3d91; color:white; padding:6px 10px; border-radius:6px; cursor:pointer; font-size:12px; }
@@ -20,12 +20,16 @@ header { background:#0b3d91; color:white; padding:15px 20px; display:flex; justi
 .logo { text-align:center; margin-bottom:10px; }
 .logo img { width:140px; }
 .dashboard { background:#eef3ff; padding:12px; border-radius:6px; margin-bottom:15px; display:none; }
-.badge { background:green; color:white; padding:3px 6px; border-radius:4px; font-size:11px; }
+.badge { padding:3px 6px; border-radius:4px; font-size:11px; margin-left:6px; }
+.public { background:green; color:white; }
+.restricted { background:red; color:white; }
 .card { border:1px solid #ddd; border-radius:8px; padding:15px; margin-bottom:12px; cursor:pointer; }
 .details { display:none; margin-top:10px; border-top:1px solid #eee; padding-top:10px; }
 .section-title { font-weight:bold; color:#0b3d91; margin-top:10px; }
 .timeline { border-left:3px solid #0b3d91; padding-left:10px; }
-footer { background:#0b3d91; color:white; text-align:center; padding:15px; margin-top:20px; font-size:13px; }
+footer { background:#0b3d91; color:white; text-align:center; padding:15px; margin-top:20px; }
+.modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); }
+.modal-content { background:white; margin:10% auto; padding:20px; width:80%; max-width:600px; border-radius:10px; }
 </style>
 </head>
 <body>
@@ -57,33 +61,32 @@ footer { background:#0b3d91; color:white; text-align:center; padding:15px; margi
 </div>
 
 <div class="dashboard" id="dashboard">
-  Email: <span id="userEmail"></span> <span class="badge">Verified</span><br>
-  Access Level: Public Records
+  Email: <span id="userEmail"></span> <span class="badge public">Verified</span><br>
   <div><strong>Request History:</strong><div id="history"></div></div>
 </div>
 
-<input type="text" id="searchInput" placeholder="Search officer name...">
+<input type="text" id="searchInput" placeholder="Search name, ID, case...">
 <div id="results"></div>
 </div>
 
+<div class="modal" id="pdfModal">
+  <div class="modal-content">
+    <h3>Document Preview</h3>
+    <p>This is a simulated PDF preview.</p>
+    <div class="button" onclick="closeModal()">Close</div>
+  </div>
+</div>
+
 <footer>
-  © 2026 Government of Australia — Public Records System<br>
-  This is a secure government service. Unauthorized use is prohibited.
+  © 2026 Government of Australia — Secure Records System
 </footer>
 
 <script>
-let currentUser=null;
-let agencyFilter="ALL";
-let historyLog=[];
+let currentUser=null, agencyFilter="ALL", historyLog=[];
 
 function setAgency(a){ agencyFilter=a; render(); }
-
 function register(){ localStorage.setItem(email.value,password.value); alert("Account created"); }
-function login(){
- if(localStorage.getItem(email.value)===password.value){
-  currentUser={email:email.value}; updateUI();
- } else alert("Invalid");
-}
+function login(){ if(localStorage.getItem(email.value)===password.value){ currentUser={email:email.value}; updateUI(); } else alert("Invalid"); }
 function logout(){ currentUser=null; updateUI(); }
 
 function updateUI(){
@@ -92,48 +95,72 @@ function updateUI(){
  render();
 }
 
+// 🔧 EASY OFFICER ADD SYSTEM
 const officers=[
-{name:"John Smith",agency:"SAPOL",rank:"Sergeant",station:"Adelaide",case:{ref:"SA1",court:"Adelaide Court",status:"Closed"},timeline:["Report","Court","Closed"]},
-{name:"Sarah Lee",agency:"NSWPF",rank:"Constable",station:"Sydney",case:{ref:"NSW1",court:"Sydney Court",status:"Open"},timeline:["Incident","Investigation"]},
-{name:"Tom Brown",agency:"VICPOL",rank:"Senior Constable",station:"Melbourne",case:{ref:"VIC1",court:"Melbourne Court",status:"Closed"},timeline:["Filed","Closed"]}
+{
+ name:"John Smith",
+ agency:"SAPOL",
+ id:"SAP123",
+ rank:"Sergeant",
+ station:"Adelaide",
+ classification:"Public",
+ case:{ref:"SA1",court:"Adelaide Court",status:"Closed"},
+ timeline:["Report Filed","Court Hearing","Closed"]
+},
+{
+ name:"Sarah Lee",
+ agency:"NSWPF",
+ id:"NSW999",
+ rank:"Constable",
+ station:"Sydney",
+ classification:"Restricted",
+ case:{ref:"NSW22",court:"Sydney Court",status:"Open"},
+ timeline:["Incident","Investigation"]
+}
 ];
 
 function render(){
  results.innerHTML="";
+ let q=searchInput.value.toLowerCase();
  let filtered=officers.filter(o=>
   (agencyFilter==="ALL"||o.agency===agencyFilter)&&
-  o.name.toLowerCase().includes(searchInput.value.toLowerCase())
+  (o.name.toLowerCase().includes(q)||o.id.toLowerCase().includes(q)||o.case.ref.toLowerCase().includes(q))
  );
 
  filtered.forEach((o,i)=>{
   const btn=currentUser?"button":"button disabled";
+  const badgeClass=o.classification==="Public"?"public":"restricted";
+
   const card=document.createElement("div");
   card.className="card";
-  card.innerHTML=`<strong>${o.name}</strong> (${o.agency})
+  card.innerHTML=`
+  <strong>${o.name}</strong> (${o.agency}) <span class="badge ${badgeClass}">${o.classification}</span>
   <div class="details" id="d${i}">
-    <div class="section-title">Info</div>${o.rank}<br>${o.station}
+    <div class="section-title">Info</div>${o.rank}<br>${o.station}<br>ID:${o.id}
     <div class="section-title">Case</div>${o.case.ref}<br>${o.case.court}<br>${o.case.status}
     <div class="section-title">Timeline</div>
     <div class="timeline">${o.timeline.map(t=>`<div>• ${t}</div>`).join("")}</div>
     <div class="section-title">Documents</div>
-    <div class="${btn}" onclick="requestDocs('${o.name}')">Request Documents</div>
+    <div class="${btn}" onclick="openPDF('${o.name}')">View Document</div>
   </div>`;
 
   card.onclick=()=>{
-   const d=document.getElementById("d"+i);
-   d.style.display=d.style.display==="block"?"none":"block";
+    const d=document.getElementById("d"+i);
+    d.style.display=d.style.display==="block"?"none":"block";
   };
 
   results.appendChild(card);
  });
 }
 
-function requestDocs(name){
+function openPDF(name){
  if(!currentUser) return alert("Login required");
  historyLog.push(name);
  history.innerHTML=historyLog.join("<br>");
- window.location.href=`mailto:australiapsc@gmail.com?subject=Request ${name}&body=User:${currentUser.email}`;
+ document.getElementById("pdfModal").style.display="block";
 }
+
+function closeModal(){ document.getElementById("pdfModal").style.display="none"; }
 
 searchInput.oninput=render;
 updateUI();
