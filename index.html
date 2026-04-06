@@ -7,8 +7,8 @@
 <link rel="icon" href="https://www.australia.gov.au/sites/default/files/favicon.ico">
 <style>
     :root {
-        --gov-blue: #003087;
-        --gov-dark: #00205b;
+        --gov-blue: #002855;        /* Changed to a deeper, richer blue */
+        --gov-dark: #001f3f;        /* Slightly darker to match the new blue */
         --gov-green: #006d38;
     }
     body {
@@ -34,7 +34,7 @@
         font-size: 14px;
     }
     header {
-        background: linear-gradient(to right, var(--gov-blue), #0047a3);
+        background: linear-gradient(to right, var(--gov-blue), #003d7a); /* Updated gradient */
         color: white;
         padding: 15px 25px;
         display: flex;
@@ -117,7 +117,7 @@
         transition: all 0.2s;
     }
     .card:hover {
-        box-shadow: 0 6px 15px rgba(0,48,135,0.15);
+        box-shadow: 0 6px 15px rgba(0,40,85,0.15); /* Updated hover shadow to match new blue */
         border-color: var(--gov-blue);
     }
     .officer-name {
@@ -171,7 +171,6 @@
 </div>
 <header>
     <div class="header-left">
-        <!-- Changed to your requested image -->
         <img src="https://beconnected.esafety.gov.au/pluginfile.php/79603/mod_resource/content/1/t33_c4_a1_p1.png" 
              class="coat-of-arms" 
              alt="Australian Flag">
@@ -196,7 +195,6 @@
     </div>
 </header>
 <div class="main-container">
-    <!-- Sidebar -->
     <div class="sidebar">
         <h3>Quick Access</h3>
         <p><strong>Logged in as:</strong> <span id="userEmailSidebar"></span></p>
@@ -204,13 +202,12 @@
         <p><strong>Security Notice:</strong><br>
         All access is audited under the <i>Privacy Act 1988</i> and <i>Crimes Act 1914</i>.</p>
     </div>
-    <!-- Main Content -->
     <div class="content">
         <input type="text" id="searchInput" class="search-bar" placeholder="Search by officer name, ID, station, or case reference...">
         <div id="results"></div>
     </div>
 </div>
-<!-- Modal -->
+
 <div class="modal" id="pdfModal">
     <div class="modal-content">
         <h2 style="color:var(--gov-blue)">Official Service Record Preview</h2>
@@ -227,12 +224,14 @@
         </div>
     </div>
 </div>
+
 <footer>
     © 2026 Australian Government — All Rights Reserved<br>
     This is a simulated training portal. Unauthorised access is strictly prohibited and may result in legal action.
 </footer>
+
 <script>
-// ====================== EASY TO ADD OFFICERS ======================
+// Officers data (unchanged)
 const officers = [
     {
         name: "John Michael Smith",
@@ -289,7 +288,6 @@ const officers = [
 let currentUser = null;
 let agencyFilter = "ALL";
 
-// ==================== FUNCTIONS ====================
 function setAgency(agency) {
     agencyFilter = agency;
     document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
@@ -372,10 +370,7 @@ function closeModal() {
     document.getElementById("pdfModal").style.display = "none";
 }
 
-// Event listeners
 document.getElementById("searchInput").oninput = render;
-
-// Initial render
 render();
 </script>
 </body>
