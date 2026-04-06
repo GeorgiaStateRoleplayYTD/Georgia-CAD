@@ -3,168 +3,509 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Public Service Officer Portal</title>
-<link rel="icon" href="https://tse4.mm.bing.net/th/id/OIP.bu6NW9qHfvNzwFhi99w4KAHaDw?w=630&h=320&rs=1&pid=ImgDetMain&o=7&rm=3">
-
+<title>Public Records &amp; Officer Portal - Australian Government</title>
+<link rel="icon" href="https://www.australia.gov.au/sites/default/files/favicon.ico">
 <style>
-body { margin:0; font-family:"Segoe UI",sans-serif; background:#f5f7fa; }
-.secure-banner { background:#1b5e20; color:white; text-align:center; padding:6px; font-size:13px; }
-header { background:#0b3d91; color:white; padding:15px 20px; display:flex; justify-content:space-between; align-items:center; }
-.nav { display:flex; gap:20px; }
-.nav a { color:white; text-decoration:none; cursor:pointer; }
-.auth-top { display:flex; gap:8px; }
-.auth-top input { padding:6px; border-radius:4px; border:none; }
-.button { background:#0b3d91; color:white; padding:6px 10px; border-radius:6px; cursor:pointer; font-size:12px; }
-.logout { background:#c62828; }
-.container { max-width:1000px; margin:25px auto; padding:20px; background:white; border-radius:10px; }
-.logo { text-align:center; margin-bottom:10px; }
-.logo img { width:140px; }
-.dashboard { background:#eef3ff; padding:12px; border-radius:6px; margin-bottom:15px; display:none; }
-.badge { padding:3px 6px; border-radius:4px; font-size:11px; margin-left:6px; }
-.public { background:green; color:white; }
-.restricted { background:red; color:white; }
-.card { border:1px solid #ddd; border-radius:8px; padding:15px; margin-bottom:12px; cursor:pointer; }
-.details { display:none; margin-top:10px; border-top:1px solid #eee; padding-top:10px; }
-.section-title { font-weight:bold; color:#0b3d91; margin-top:10px; }
-.timeline { border-left:3px solid #0b3d91; padding-left:10px; }
-footer { background:#0b3d91; color:white; text-align:center; padding:15px; margin-top:20px; }
-.modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); }
-.modal-content { background:white; margin:10% auto; padding:20px; width:80%; max-width:600px; border-radius:10px; }
+    :root {
+        --gov-blue: #003087;
+        --gov-darkblue: #00205b;
+        --accent-green: #006d38;
+    }
+    body {
+        margin: 0;
+        font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+        background: #f4f6f9;
+        color: #333;
+        line-height: 1.5;
+    }
+    .top-bar {
+        background: #00205b;
+        color: white;
+        font-size: 13px;
+        padding: 6px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 3px solid #006d38;
+    }
+    .secure-banner {
+        background: #006d38;
+        color: white;
+        text-align: center;
+        padding: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+    header {
+        background: linear-gradient(to right, var(--gov-blue), #0047a3);
+        color: white;
+        padding: 15px 25px;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .header-left {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+    }
+    .coat-of-arms {
+        height: 68px;
+        width: auto;
+    }
+    .header-title {
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+    }
+    .nav {
+        display: flex;
+        gap: 28px;
+        font-weight: 500;
+    }
+    .nav a {
+        color: white;
+        text-decoration: none;
+        padding: 8px 0;
+        border-bottom: 3px solid transparent;
+        transition: all 0.2s;
+    }
+    .nav a:hover, .nav a.active {
+        border-bottom: 3px solid #ffd700;
+    }
+    .auth-section {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+    }
+    .auth-section input {
+        padding: 8px 12px;
+        border: none;
+        border-radius: 4px;
+        font-size: 14px;
+        width: 160px;
+    }
+    .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 14px;
+    }
+    .btn-primary {
+        background: #006d38;
+        color: white;
+    }
+    .btn-danger {
+        background: #c62828;
+        color: white;
+    }
+    .main-container {
+        max-width: 1280px;
+        margin: 25px auto;
+        padding: 0 25px;
+        display: flex;
+        gap: 25px;
+    }
+    .sidebar {
+        width: 260px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        padding: 20px;
+        height: fit-content;
+    }
+    .content {
+        flex: 1;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        padding: 25px;
+    }
+    .logo-bar {
+        text-align: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #ddd;
+    }
+    .dashboard-header {
+        background: #eef4ff;
+        padding: 15px 20px;
+        border-radius: 6px;
+        margin-bottom: 25px;
+        border-left: 5px solid #003087;
+    }
+    .search-bar {
+        width: 100%;
+        padding: 14px 20px;
+        font-size: 16px;
+        border: 2px solid #ccc;
+        border-radius: 6px;
+        margin-bottom: 20px;
+    }
+    .filters {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+    .filter-btn {
+        padding: 6px 14px;
+        background: #f1f3f6;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 13px;
+    }
+    .filter-btn.active {
+        background: #003087;
+        color: white;
+        border-color: #003087;
+    }
+    .card {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 18px;
+        margin-bottom: 16px;
+        transition: all 0.2s;
+    }
+    .card:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border-color: #003087;
+    }
+    .officer-name {
+        font-size: 18px;
+        font-weight: 700;
+        color: #003087;
+    }
+    .badge {
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+    .public { background:#006d38; color:white; }
+    .restricted { background:#c62828; color:white; }
+    .details {
+        display: none;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #eee;
+    }
+    .section-title {
+        font-weight: 700;
+        color: #003087;
+        margin: 12px 0 6px;
+        font-size: 15px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+    }
+    th {
+        background: #f8f9fa;
+        color: #003087;
+    }
+    footer {
+        background: #00205b;
+        color: #ddd;
+        text-align: center;
+        padding: 30px 20px;
+        font-size: 13px;
+        margin-top: 50px;
+    }
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.75);
+        z-index: 9999;
+    }
+    .modal-content {
+        background: white;
+        margin: 5% auto;
+        width: 90%;
+        max-width: 720px;
+        border-radius: 8px;
+        padding: 25px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .gov-notice {
+        background: #fff3cd;
+        border: 1px solid #ffeaa7;
+        padding: 12px;
+        font-size: 13px;
+        color: #856404;
+        border-radius: 4px;
+        margin: 15px 0;
+    }
 </style>
 </head>
 <body>
 
-<div class="secure-banner">🔒 Secure .gov.au Service — Official Public Records Portal</div>
+<div class="top-bar">
+    <div>Australian Government | Department of Home Affairs • Australian Federal Police • State &amp; Territory Police Services</div>
+    <div>🔒 Secure Connection • Session ID: AUS-2026-04-06-14:22</div>
+</div>
+
+<div class="secure-banner">
+    OFFICIAL • CONFIDENTIAL • PUBLIC SERVICE RECORDS PORTAL • .gov.au
+</div>
 
 <header>
-  <div class="nav">
-    <a onclick="setAgency('ALL')">All</a>
-    <a onclick="setAgency('SAPOL')">SAPOL</a>
-    <a onclick="setAgency('NSWPF')">NSWPF</a>
-    <a onclick="setAgency('VICPOL')">VICPOL</a>
-  </div>
+    <div class="header-left">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Flag_of_Australia_%28converted%29.svg/800px-Flag_of_Australia_%28converted%29.svg.png" class="coat-of-arms" alt="Australian Flag">
+        <div>
+            <div class="header-title">Public Service Officer Portal</div>
+            <div style="font-size:13px;opacity:0.9;">Integrated Police Records System (IPRS)</div>
+        </div>
+    </div>
+    
+    <div class="nav">
+        <a onclick="setAgency('ALL')" class="active">All Records</a>
+        <a onclick="setAgency('AFP')">AFP</a>
+        <a onclick="setAgency('SAPOL')">SAPOL</a>
+        <a onclick="setAgency('NSWPF')">NSWPF</a>
+        <a onclick="setAgency('VICPOL')">VICPOL</a>
+        <a onclick="setAgency('QLD')">QLD Police</a>
+    </div>
 
-  <div class="auth-top">
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
-    <div class="button" onclick="register()">Create</div>
-    <div class="button" onclick="login()">Login</div>
-    <div class="button logout" onclick="logout()">Logout</div>
-  </div>
+    <div class="auth-section">
+        <input type="email" id="email" placeholder="Official Email">
+        <input type="password" id="password" placeholder="Password">
+        <button class="btn btn-primary" onclick="login()">Login</button>
+        <button class="btn" onclick="register()">Register</button>
+        <button class="btn btn-danger" onclick="logout()">Logout</button>
+    </div>
 </header>
 
-<div class="container">
+<div class="main-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div style="font-weight:700; color:#003087; margin-bottom:15px;">Quick Access</div>
+        <div class="card" style="margin-bottom:12px;">
+            <strong>Recent Searches</strong><br>
+            <small>John Smith • SA-12487</small><br><br>
+            <strong>My Requests</strong><br>
+            <small>12 records accessed this month</small>
+        </div>
+        
+        <div class="gov-notice">
+            <strong>Security Notice:</strong><br>
+            All access is logged and audited under the <i>Freedom of Information Act 1982</i> and <i>Privacy Act 1988</i>.
+        </div>
+        
+        <div style="margin-top:25px;">
+            <strong>Agency Filter</strong>
+            <div onclick="setAgency('ALL')" class="filter-btn active" id="filter-all">All Agencies</div>
+        </div>
+    </div>
 
-<div class="logo">
-  <img src="https://tse4.mm.bing.net/th/id/OIP.bu6NW9qHfvNzwFhi99w4KAHaDw?w=630&h=320&rs=1&pid=ImgDetMain&o=7&rm=3">
-  <div><strong>Public Service Records System</strong></div>
+    <!-- Main Content -->
+    <div class="content">
+        <div class="logo-bar">
+            <img src="https://tse4.mm.bing.net/th/id/OIP.bu6NW9qHfvNzwFhi99w4KAHaDw?w=630&h=320&rs=1&pid=ImgDetMain&o=7&rm=3" style="height:110px;" alt="Police Badge">
+            <h2 style="margin:8px 0 4px;">Public Service Records System</h2>
+            <p style="color:#555;font-size:14px;">Integrated National Police Information System • Version 4.8.2</p>
+        </div>
+
+        <div class="dashboard-header" id="dashboard" style="display:none;">
+            <strong>Logged in as:</strong> <span id="userEmail"></span> 
+            <span class="badge public">Level 3 Verified Officer</span><br>
+            Last login: <span id="lastLogin"></span><br>
+            <strong>Request History:</strong>
+            <div id="history" style="margin-top:8px; font-size:13px;"></div>
+        </div>
+
+        <input type="text" id="searchInput" class="search-bar" placeholder="Search by name, officer ID, case reference, station...">
+
+        <div class="filters">
+            <div onclick="toggleFilter(this)" class="filter-btn active">All Records</div>
+            <div onclick="toggleFilter(this)" class="filter-btn">Public</div>
+            <div onclick="toggleFilter(this)" class="filter-btn">Restricted</div>
+        </div>
+
+        <div id="results"></div>
+    </div>
 </div>
 
-<div class="dashboard" id="dashboard">
-  Email: <span id="userEmail"></span> <span class="badge public">Verified</span><br>
-  <div><strong>Request History:</strong><div id="history"></div></div>
-</div>
-
-<input type="text" id="searchInput" placeholder="Search name, ID, case...">
-<div id="results"></div>
-</div>
-
+<!-- PDF Modal -->
 <div class="modal" id="pdfModal">
-  <div class="modal-content">
-    <h3>Document Preview</h3>
-    <p>This is a simulated PDF preview.</p>
-    <div class="button" onclick="closeModal()">Close</div>
-  </div>
+    <div class="modal-content">
+        <h2 style="margin-top:0; color:#003087;">Document Preview — Official Record</h2>
+        <div style="background:#f8f9fa; padding:20px; border:1px dashed #aaa; min-height:420px; margin:15px 0;">
+            <p><strong>Officer Service Record — CONFIDENTIAL</strong></p>
+            <p>This is a simulated official document preview. In a real system this would display a secure PDF with watermarks and digital signatures.</p>
+            <hr>
+            <p><strong>Classification:</strong> PROTECTED<br>
+               <strong>Issued by:</strong> Australian Criminal Intelligence Commission<br>
+               <strong>Date:</strong> 06 April 2026</p>
+        </div>
+        <div style="text-align:right;">
+            <button class="btn btn-primary" onclick="closeModal()">Close Preview</button>
+        </div>
+    </div>
 </div>
 
 <footer>
-  © 2026 Government of Australia — Secure Records System
+    © 2026 Australian Government — All Rights Reserved<br>
+    This is a simulated training and demonstration portal. Unauthorised use is prohibited.<br>
+    Privacy | Accessibility | FOI | Contact the Helpdesk | Site Security
 </footer>
 
 <script>
-let currentUser=null, agencyFilter="ALL", historyLog=[];
+let currentUser = null;
+let agencyFilter = "ALL";
+let historyLog = [];
 
-function setAgency(a){ agencyFilter=a; render(); }
-function register(){ localStorage.setItem(email.value,password.value); alert("Account created"); }
-function login(){ if(localStorage.getItem(email.value)===password.value){ currentUser={email:email.value}; updateUI(); } else alert("Invalid"); }
-function logout(){ currentUser=null; updateUI(); }
-
-function updateUI(){
- dashboard.style.display=currentUser?"block":"none";
- if(currentUser) userEmail.innerText=currentUser.email;
- render();
-}
-
-// 🔧 EASY OFFICER ADD SYSTEM
-const officers=[
-{
- name:"John Smith",
- agency:"SAPOL",
- id:"SAP123",
- rank:"Sergeant",
- station:"Adelaide",
- classification:"Public",
- case:{ref:"SA1",court:"Adelaide Court",status:"Closed"},
- timeline:["Report Filed","Court Hearing","Closed"]
-},
-{
- name:"Sarah Lee",
- agency:"NSWPF",
- id:"NSW999",
- rank:"Constable",
- station:"Sydney",
- classification:"Restricted",
- case:{ref:"NSW22",court:"Sydney Court",status:"Open"},
- timeline:["Incident","Investigation"]
-}
+const officers = [
+    { name:"John Michael Smith", agency:"SAPOL", id:"SAP-12487", rank:"Sergeant", station:"Adelaide Central", classification:"Public",
+      case:{ref:"SA-2024-1182", court:"Adelaide Magistrates Court", status:"Closed"},
+      timeline:["Report Filed 12/03/2024", "Hearing 05/06/2024", "Case Closed 18/09/2024"] },
+    
+    { name:"Sarah Elizabeth Lee", agency:"NSWPF", id:"NSW-99821", rank:"Senior Constable", station:"Surry Hills", classification:"Restricted",
+      case:{ref:"NSW-2025-0341", court:"Downing Centre", status:"Open"},
+      timeline:["Incident Reported", "Investigation Ongoing"] },
+    
+    { name:"Michael Tran", agency:"VICPOL", id:"VIC-77412", rank:"Inspector", station:"Melbourne CBD", classification:"Public",
+      case:{ref:"VIC-2025-0923", court:"Melbourne County Court", status:"Closed"},
+      timeline:["Arrest Made", "Court Proceedings", "Sentencing"] },
+    
+    { name:"Emma Thompson", agency:"AFP", id:"AFP-44561", rank:"Federal Agent", station:"Canberra", classification:"Restricted",
+      case:{ref:"AFP-INT-2026-007", court:"Federal Court", status:"Active"},
+      timeline:["International Inquiry Opened"] },
+    
+    { name:"David Nguyen", agency:"QLD", id:"QLD-66743", rank:"Constable", station:"Brisbane Fortitude Valley", classification:"Public",
+      case:{ref:"QLD-2025-4451", court:"Brisbane Magistrates", status:"Closed"},
+      timeline:["Report Filed", "Caution Issued"] }
 ];
 
-function render(){
- results.innerHTML="";
- let q=searchInput.value.toLowerCase();
- let filtered=officers.filter(o=>
-  (agencyFilter==="ALL"||o.agency===agencyFilter)&&
-  (o.name.toLowerCase().includes(q)||o.id.toLowerCase().includes(q)||o.case.ref.toLowerCase().includes(q))
- );
-
- filtered.forEach((o,i)=>{
-  const btn=currentUser?"button":"button disabled";
-  const badgeClass=o.classification==="Public"?"public":"restricted";
-
-  const card=document.createElement("div");
-  card.className="card";
-  card.innerHTML=`
-  <strong>${o.name}</strong> (${o.agency}) <span class="badge ${badgeClass}">${o.classification}</span>
-  <div class="details" id="d${i}">
-    <div class="section-title">Info</div>${o.rank}<br>${o.station}<br>ID:${o.id}
-    <div class="section-title">Case</div>${o.case.ref}<br>${o.case.court}<br>${o.case.status}
-    <div class="section-title">Timeline</div>
-    <div class="timeline">${o.timeline.map(t=>`<div>• ${t}</div>`).join("")}</div>
-    <div class="section-title">Documents</div>
-    <div class="${btn}" onclick="openPDF('${o.name}')">View Document</div>
-  </div>`;
-
-  card.onclick=()=>{
-    const d=document.getElementById("d"+i);
-    d.style.display=d.style.display==="block"?"none":"block";
-  };
-
-  results.appendChild(card);
- });
+function setAgency(agency) {
+    agencyFilter = agency;
+    document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+    render();
 }
 
-function openPDF(name){
- if(!currentUser) return alert("Login required");
- historyLog.push(name);
- history.innerHTML=historyLog.join("<br>");
- document.getElementById("pdfModal").style.display="block";
+function login() {
+    const email = document.getElementById("email").value;
+    if (email) {
+        currentUser = { email: email };
+        updateUI();
+    } else {
+        alert("Please enter your official email address.");
+    }
 }
 
-function closeModal(){ document.getElementById("pdfModal").style.display="none"; }
+function register() {
+    alert("New accounts must be approved by agency administrator. Please contact your supervisor.");
+}
 
-searchInput.oninput=render;
+function logout() {
+    currentUser = null;
+    updateUI();
+}
+
+function updateUI() {
+    const dash = document.getElementById("dashboard");
+    dash.style.display = currentUser ? "block" : "none";
+    if (currentUser) {
+        document.getElementById("userEmail").innerText = currentUser.email;
+        document.getElementById("lastLogin").innerText = "06 April 2026 14:11 ACST";
+    }
+    render();
+}
+
+function render() {
+    const results = document.getElementById("results");
+    results.innerHTML = "";
+    const q = document.getElementById("searchInput").value.toLowerCase();
+
+    const filtered = officers.filter(o => {
+        const matchAgency = agencyFilter === "ALL" || o.agency === agencyFilter;
+        const matchSearch = o.name.toLowerCase().includes(q) || 
+                           o.id.toLowerCase().includes(q) || 
+                           o.case.ref.toLowerCase().includes(q);
+        return matchAgency && matchSearch;
+    });
+
+    filtered.forEach((o, i) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:start;">
+                <div>
+                    <span class="officer-name">${o.name}</span><br>
+                    <strong>${o.rank}</strong> • ${o.agency} • ${o.station}
+                </div>
+                <span class="badge ${o.classification.toLowerCase()}">${o.classification}</span>
+            </div>
+            <div class="details" id="d${i}">
+                <div class="section-title">Officer ID</div>
+                ${o.id}
+                
+                <div class="section-title">Current Case</div>
+                Reference: ${o.case.ref}<br>
+                Court: ${o.case.court}<br>
+                Status: <strong>${o.case.status}</strong>
+                
+                <div class="section-title">Timeline</div>
+                <div style="padding-left:15px; border-left:3px solid #003087;">
+                    ${o.timeline.map(t => `<div>• ${t}</div>`).join("")}
+                </div>
+                
+                <div class="section-title">Actions</div>
+                <button class="btn btn-primary" onclick="openPDF('${o.name}')">View Full Service Record</button>
+            </div>
+        `;
+        
+        card.onclick = function(e) {
+            if (e.target.tagName !== "BUTTON") {
+                const details = document.getElementById("d"+i);
+                details.style.display = details.style.display === "block" ? "none" : "block";
+            }
+        };
+        results.appendChild(card);
+    });
+
+    if (filtered.length === 0) {
+        results.innerHTML = `<p style="text-align:center; padding:40px; color:#666;">No records found matching your search.</p>`;
+    }
+}
+
+function openPDF(name) {
+    if (!currentUser) {
+        alert("You must be logged in with an official account to view restricted records.");
+        return;
+    }
+    historyLog.unshift(`Viewed: ${name} — ${new Date().toLocaleTimeString()}`);
+    document.getElementById("history").innerHTML = historyLog.join("<br>");
+    document.getElementById("pdfModal").style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("pdfModal").style.display = "none";
+}
+
+function toggleFilter(el) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+}
+
+document.getElementById("searchInput").oninput = render;
+
+// Initial render
 updateUI();
 </script>
-
 </body>
 </html>
