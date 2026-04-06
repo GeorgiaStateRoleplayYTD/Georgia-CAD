@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Public Service Officer Portal - Australian Government</title>
 <link rel="icon" href="https://www.australia.gov.au/sites/default/files/favicon.ico">
-
 <style>
     :root {
         --gov-blue: #003087;
@@ -50,6 +49,8 @@
     }
     .coat-of-arms {
         height: 72px;
+        width: auto;
+        object-fit: contain;
     }
     .nav a {
         color: white;
@@ -77,7 +78,6 @@
     }
     .btn-primary { background: var(--gov-green); color: white; }
     .btn-danger { background: #c62828; color: white; }
-
     .main-container {
         max-width: 1350px;
         margin: 30px auto;
@@ -135,7 +135,6 @@
     .restricted { background: #c62828; color: white; }
     .details { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee; }
     .section-title { font-weight: 700; color: var(--gov-blue); margin: 12px 0 6px; }
-
     footer {
         background: var(--gov-dark);
         color: #ddd;
@@ -163,25 +162,24 @@
 </style>
 </head>
 <body>
-
 <div class="top-bar">
     <div>Australian Government • Department of Home Affairs • National Police Information System</div>
     <div>🔒 Secure • Session ID: AUS-20260406-1415</div>
 </div>
-
 <div class="secure-banner">
     OFFICIAL GOVERNMENT RECORD • CONFIDENTIAL • .gov.au
 </div>
-
 <header>
     <div class="header-left">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Flag_of_Australia_%28converted%29.svg/800px-Flag_of_Australia_%28converted%29.svg.png" class="coat-of-arms" alt="Australian Flag">
+        <!-- Changed to your requested image -->
+        <img src="https://beconnected.esafety.gov.au/pluginfile.php/79603/mod_resource/content/1/t33_c4_a1_p1.png" 
+             class="coat-of-arms" 
+             alt="Australian Flag">
         <div>
             <h1 style="margin:0; font-size:24px;">Public Service Officer Portal</h1>
             <p style="margin:0; font-size:14px;">Integrated Police Records System (IPRS)</p>
         </div>
     </div>
-
     <div class="nav">
         <a onclick="setAgency('ALL')" class="active">All Officers</a>
         <a onclick="setAgency('AFP')">AFP</a>
@@ -190,7 +188,6 @@
         <a onclick="setAgency('VICPOL')">VICPOL</a>
         <a onclick="setAgency('QLD')">QLD Police</a>
     </div>
-
     <div class="auth-section">
         <input type="email" id="email" placeholder="Official Email">
         <input type="password" id="password" placeholder="Password">
@@ -198,7 +195,6 @@
         <button class="btn btn-danger" onclick="logout()">Logout</button>
     </div>
 </header>
-
 <div class="main-container">
     <!-- Sidebar -->
     <div class="sidebar">
@@ -208,15 +204,12 @@
         <p><strong>Security Notice:</strong><br>
         All access is audited under the <i>Privacy Act 1988</i> and <i>Crimes Act 1914</i>.</p>
     </div>
-
     <!-- Main Content -->
     <div class="content">
         <input type="text" id="searchInput" class="search-bar" placeholder="Search by officer name, ID, station, or case reference...">
-
         <div id="results"></div>
     </div>
 </div>
-
 <!-- Modal -->
 <div class="modal" id="pdfModal">
     <div class="modal-content">
@@ -234,15 +227,12 @@
         </div>
     </div>
 </div>
-
 <footer>
     © 2026 Australian Government — All Rights Reserved<br>
     This is a simulated training portal. Unauthorised access is strictly prohibited and may result in legal action.
 </footer>
-
 <script>
 // ====================== EASY TO ADD OFFICERS ======================
-// Just add new objects inside this array following the same structure
 const officers = [
     {
         name: "John Michael Smith",
@@ -294,7 +284,6 @@ const officers = [
         case: { ref: "QLD-2025-4451", court: "Brisbane Magistrates Court", status: "Closed" },
         timeline: ["Report Filed", "Caution Issued"]
     }
-    // ← Add new officers here, just copy the format above
 ];
 
 let currentUser = null;
@@ -328,10 +317,9 @@ function render() {
     const results = document.getElementById("results");
     results.innerHTML = "";
     const q = document.getElementById("searchInput").value.toLowerCase();
-
     const filtered = officers.filter(o => {
         const agencyMatch = agencyFilter === "ALL" || o.agency === agencyFilter;
-        const searchMatch = o.name.toLowerCase().includes(q) || 
+        const searchMatch = o.name.toLowerCase().includes(q) ||
                            o.id.toLowerCase().includes(q) ||
                            o.station.toLowerCase().includes(q);
         return agencyMatch && searchMatch;
